@@ -48,7 +48,8 @@ app.use(helmet({
       fontSrc: [
         "'self'",
         "https://fonts.gstatic.com",
-        "https://fonts.googleapis.com"
+        "https://fonts.googleapis.com",
+        "https://cdnjs.cloudflare.com" // For Font Awesome icons
       ],
       imgSrc: [
         "'self'",
@@ -57,7 +58,8 @@ app.use(helmet({
         "https:"
       ],
       connectSrc: [
-        "'self'"
+        "'self'",
+        "https://unpkg.com" // For Lottie Player and Leaflet connections
       ]
     }
   }
