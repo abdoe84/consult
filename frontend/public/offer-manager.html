@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>REVIVA | Manager Review</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root{
+      --bg:#ffffff;           /* WHITE */
+      --reviva-green:#66a286; /* PATINA */
+      --reviva-blue:#54c0e8;  /* PICTON BLUE */
+      --scampi:#625d9d;       /* SCAMPI */
+    }
+    pre{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  </style>
+</head>
+
+<body class="min-h-screen text-slate-800" style="background-color: var(--bg);">
+  <div class="fixed inset-0 pointer-events-none">
+    <div class="absolute inset-0 bg-gradient-to-br from-white via-slate-50 to-slate-100"></div>
+    <div class="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full blur-3xl opacity-22"
+         style="background: radial-gradient(circle at 30% 30%, var(--reviva-blue), transparent 60%);"></div>
+    <div class="absolute -bottom-56 right-1/4 w-[720px] h-[720px] rounded-full blur-3xl opacity-18"
+         style="background: radial-gradient(circle at 30% 30%, var(--reviva-green), transparent 60%);"></div>
+  </div>
+
+  <header class="sticky top-0 z-10 border-b border-slate-200 bg-white/80 backdrop-blur relative shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3 min-w-0">
+        <a id="backLink" href="./dashboard.html"
+           class="rounded-xl border border-white/12 bg-white/7 px-3 py-2 text-xs hover:bg-white/12">← Back</a>
+        <a href="./dashboard.html"
+           class="rounded-xl border border-white/12 bg-white/7 px-3 py-2 text-xs hover:bg-white/12 flex items-center gap-1">
+          <span>🏠</span>
+          <span>Home</span>
+        </a>
+        <div class="min-w-0">
+          <div class="font-semibold tracking-tight truncate" id="pageTitle">Offer Review</div>
+          <div class="text-xs text-slate-200/70 truncate" id="whoami">Loading session...</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <div class="text-xs text-slate-200/70">Status:</div>
+        <div id="offerStatus" class="text-xs font-mono rounded-full border border-white/12 bg-white/7 px-3 py-1">-</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8 relative">
+    <section class="bg-white/7 border border-white/12 rounded-2xl p-6 shadow-2xl backdrop-blur">
+      <div id="errorBox" class="hidden mb-4 rounded-xl border border-red-400/30 bg-red-500/10 px-4 py-3 text-sm text-red-200"></div>
+      <div id="successBox" class="hidden mb-4 rounded-xl border border-emerald-400/25 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200"></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-lg">
+          <div class="flex items-center justify-between mb-4">
+            <div class="font-semibold text-lg" style="color: var(--scampi);">العرض الفني / Technical Offer</div>
+            <div class="text-xs text-slate-500 bg-white/80 px-2 py-1 rounded-lg">عرض فقط</div>
+          </div>
+          <div id="techPre" class="mt-3 text-sm text-slate-700 min-h-[200px]">جاري التحميل...</div>
+        </div>
+
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-lg">
+          <div class="flex items-center justify-between mb-4">
+            <div class="font-semibold text-lg" style="color: var(--reviva-green);">العرض المالي / Financial Offer</div>
+            <div class="text-xs text-slate-500 bg-white/80 px-2 py-1 rounded-lg">عرض فقط</div>
+          </div>
+          <div id="finPre" class="mt-3 text-sm text-slate-700 min-h-[200px]">جاري التحميل...</div>
+        </div>
+      </div>
+
+      <!-- Timeline Section -->
+      <div id="timelineSection" class="hidden mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-lg">
+        <div class="flex items-center justify-between mb-4">
+          <div class="font-semibold text-lg" style="color: var(--reviva-blue);">📅 Project Timeline / الجدول الزمني للمشروع</div>
+          <div class="text-xs text-slate-500 bg-white/80 px-2 py-1 rounded-lg">عرض فقط</div>
+        </div>
+        <div id="timelineBox" class="mt-3 text-sm text-slate-700"></div>
+      </div>
+
+      <div class="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+        <div class="font-semibold" style="color: var(--reviva-blue);">Manager Comment</div>
+        <textarea id="managerComment" rows="4"
+          class="mt-3 w-full rounded-xl bg-white border border-slate-300 px-3 py-2 outline-none focus:ring-2 focus:ring-[var(--reviva-blue)] text-slate-800"
+          placeholder="Required if rejecting..."></textarea>
+
+        <div class="mt-3 flex flex-col sm:flex-row gap-2 sm:justify-end">
+          <button id="btnApprove"
+            class="rounded-xl bg-emerald-500/15 border border-emerald-400/20 px-4 py-2 text-sm hover:bg-emerald-500/20">
+            Approve
+          </button>
+          <button id="btnReject"
+            class="rounded-xl bg-red-500/15 border border-red-400/20 px-4 py-2 text-sm hover:bg-red-500/20">
+            Reject
+          </button>
+        </div>
+      </div>
+
+      <!-- Client Portal Link (shown after approval) -->
+      <div id="clientLinkBox" class="hidden mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+        <div class="font-semibold mb-2" style="color: var(--scampi);">Client Portal Link</div>
+        <div class="text-xs text-slate-500 mb-3">Share this link with the client to view and approve the offer.</div>
+        <div class="flex gap-2">
+          <input
+            id="clientLinkInput"
+            class="flex-1 px-3 py-2 rounded-lg bg-white border border-slate-300 text-sm text-slate-800"
+            readonly
+          />
+          <a
+            id="clientLinkOpen"
+            class="px-4 py-2 rounded-lg bg-white border border-slate-300 hover:bg-slate-50 text-sm font-medium"
+            target="_blank"
+            style="color: var(--reviva-blue);"
+          >
+            Open
+          </a>
+          <button
+            id="clientLinkCopy"
+            class="px-4 py-2 rounded-lg bg-white border border-slate-300 hover:bg-slate-50 text-sm font-medium"
+            style="color: var(--scampi);"
+          >
+            Copy
+          </button>
+        </div>
+      </div>
+
+      <div id="portalBox" class="hidden mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+        <div class="font-semibold" style="color: var(--scampi);">Client Portal</div>
+        <div class="text-xs text-slate-500 mt-1">Token/Link returned from backend after approval (if enabled).</div>
+        <div class="mt-3 grid gap-2">
+          <div class="flex items-center justify-between rounded-xl bg-white border border-slate-300 px-4 py-3">
+            <div class="text-sm text-slate-600">Token</div>
+            <div id="portalToken" class="font-mono text-xs text-slate-800 break-all">-</div>
+          </div>
+          <div class="flex items-center justify-between rounded-xl bg-white border border-slate-300 px-4 py-3">
+            <div class="text-sm text-slate-600">URL</div>
+            <a id="portalUrl" class="font-mono text-xs break-all underline" style="color: var(--reviva-blue);" href="#" target="_blank" rel="noreferrer">-</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="../assets/js/pages/offer-manager.js"></script>
+</body>
+</html>

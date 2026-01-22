@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Offer Review | REVIVA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --reviva-green: #66a286;  /* PATINA */
+      --reviva-blue: #54c0e8;   /* PICTON BLUE */
+      --reviva-hippy: #5e87b8;  /* HIPPY BLUE */
+      --scampi: #625d9d;        /* SCAMPI */
+      --fountain: #5ab5c4;      /* FOUNTAIN BLUE */
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes gradient-shift {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.5; }
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #dbeafe 100%);
+    }
+  </style>
+</head>
+
+<body class="text-slate-700">
+  <!-- Animated Background Overlays -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute top-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-30 animate-gradient"
+         style="background: radial-gradient(circle, var(--reviva-blue), transparent 70%);"></div>
+    <div class="absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full blur-3xl opacity-25 animate-float"
+         style="background: radial-gradient(circle, var(--reviva-green), transparent 70%);"></div>
+    <div class="absolute bottom-0 left-1/3 w-[700px] h-[700px] rounded-full blur-3xl opacity-20"
+         style="background: radial-gradient(circle, var(--fountain), transparent 70%); animation: gradient-shift 10s ease-in-out infinite;"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-10 border-b border-white/30 bg-white/70 backdrop-blur-xl shadow-lg">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between gap-4">
+      <!-- Logo Section -->
+      <div class="flex items-center gap-4 min-w-0">
+        <div class="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-lg transition-transform hover:scale-105 overflow-hidden p-1.5"
+             style="background: linear-gradient(135deg, var(--reviva-blue), var(--reviva-green));">
+          <img src="intake/Logo.png" alt="REVIVA Logo" class="w-full h-full object-contain">
+        </div>
+        <div class="min-w-0">
+          <div class="font-bold text-xl tracking-tight truncate"
+               style="background: linear-gradient(135deg, var(--reviva-blue), var(--scampi)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            REVIVA
+          </div>
+          <div class="text-sm text-slate-600 truncate" id="subTitle">Offer Review</div>
+        </div>
+      </div>
+
+      <!-- Actions Section -->
+      <div class="flex items-center gap-3">
+        <div class="font-mono text-xs font-semibold px-3 py-1.5 rounded-lg inline-block"
+             style="background: linear-gradient(135deg, rgba(102, 162, 134, 0.1), rgba(84, 192, 232, 0.1)); color: var(--scampi);"
+             id="roleChip">—</div>
+        <a href="dashboard.html" class="rounded-xl border border-slate-300/50 bg-white/80 px-5 py-2.5 text-sm font-medium hover:bg-white hover:shadow-md transition-all flex items-center gap-2"
+           style="color: var(--scampi);">
+          <span>🏠</span>
+          <span>Home</span>
+        </a>
+        <button id="btnBack" class="rounded-xl border border-slate-300/50 bg-white/80 px-5 py-2.5 text-sm font-medium hover:bg-white hover:shadow-md transition-all"
+                style="color: var(--scampi);">
+          ← Back
+        </button>
+        <button id="btnLogout" class="rounded-xl px-5 py-2.5 text-sm font-medium text-white hover:shadow-lg transition-all"
+                style="background: linear-gradient(135deg, var(--reviva-blue), var(--fountain));">
+          Logout
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-6 py-8 relative">
+    <!-- Error Message -->
+    <div id="errorBox" class="hidden mb-5 rounded-xl border border-red-300/50 bg-red-50/80 px-5 py-4 text-sm text-red-600 shadow-sm">
+      Error message here
+    </div>
+
+    <!-- Offer Summary -->
+    <section class="bg-white/60 border border-white/40 rounded-3xl p-6 shadow-2xl backdrop-blur-sm mb-6">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div class="flex-1">
+          <div class="text-xs font-medium text-slate-600 mb-2">Offer</div>
+          <div class="text-2xl font-bold" style="color: var(--reviva-blue);" id="offerId">—</div>
+          <div class="text-sm text-slate-600 mt-2">Review technical and financial proposal</div>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+          <div class="bg-white/40 border border-white/30 rounded-xl p-4 shadow-sm">
+            <div class="text-xs font-medium text-slate-600 mb-1">Status</div>
+            <div class="font-bold text-slate-800" id="offerStatus">—</div>
+          </div>
+          <div class="bg-white/40 border border-white/30 rounded-xl p-4 shadow-sm">
+            <div class="text-xs font-medium text-slate-600 mb-1">Updated</div>
+            <div class="font-bold text-slate-800" id="offerUpdated">—</div>
+          </div>
+          <div class="bg-white/40 border border-white/30 rounded-xl p-4 shadow-sm">
+            <div class="text-xs font-medium text-slate-600 mb-1">Request</div>
+            <div class="font-bold text-slate-800" id="requestRef">—</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Proposal -->
+    <section class="bg-white/60 border border-white/40 rounded-3xl p-6 shadow-2xl backdrop-blur-sm mb-6">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <div class="text-xl font-bold" style="color: var(--scampi);">Technical Proposal</div>
+          <div class="text-sm text-slate-600 mt-1">Read-only technical specifications</div>
+        </div>
+        <span class="text-sm text-slate-500 bg-slate-50/80 px-3 py-1 rounded-lg">View Only</span>
+      </div>
+
+      <div class="mt-4 space-y-4" id="technicalBox">
+        <!-- Content will be loaded here -->
+        <div class="text-center py-8 text-slate-500">
+          <div class="text-4xl mb-2">📋</div>
+          <div class="font-medium">Loading technical proposal...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Financial Proposal -->
+    <section class="bg-white/60 border border-white/40 rounded-3xl p-6 shadow-2xl backdrop-blur-sm mb-6">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <div class="text-xl font-bold" style="color: var(--reviva-green);">Financial Proposal</div>
+          <div class="text-sm text-slate-600 mt-1">SAR • VAT 15%</div>
+        </div>
+      </div>
+
+      <div class="mt-6 overflow-hidden rounded-2xl border border-slate-200/60 shadow-xl">
+        <table class="min-w-full text-sm">
+          <thead style="background: linear-gradient(135deg, var(--reviva-green), var(--fountain));">
+            <tr class="text-left text-white">
+              <th class="px-5 py-4 font-semibold">الوصف / Description</th>
+              <th class="px-5 py-4 font-semibold text-center">الوحدة / Unit</th>
+              <th class="px-5 py-4 font-semibold text-center">الكمية / Qty</th>
+              <th class="px-5 py-4 font-semibold text-right">سعر التكلفة / Base Cost (SAR)</th>
+              <th class="px-5 py-4 font-semibold text-center bg-emerald-700/90">نسبة الربح % / Profit %</th>
+              <th class="px-5 py-4 font-semibold text-center bg-amber-600/90">نسبة الطوارئ % / Contingency %</th>
+              <th class="px-5 py-4 font-semibold text-center bg-red-600/90 discount-col hidden">نسبة الخصم % / Discount %</th>
+              <th class="px-5 py-4 font-semibold text-right" style="background: linear-gradient(135deg, rgba(102, 162, 134, 0.95), rgba(84, 192, 232, 0.95));">الإجمالي / Line Total</th>
+            </tr>
+          </thead>
+          <tbody id="financialBody" class="divide-y divide-slate-200/50 bg-white">
+            <!-- Rows will be added here -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-6 flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+        <div class="text-sm text-slate-600 max-w-2xl" id="financialNotes">
+          <!-- Notes will be added here -->
+        </div>
+
+        <div class="bg-white/40 border border-white/30 rounded-2xl p-6 shadow-lg w-full md:w-96">
+          <div class="flex justify-between text-slate-700 mb-3">
+            <span class="text-slate-600">Subtotal</span>
+            <span class="font-medium" id="subTotal">—</span>
+          </div>
+          <div class="flex justify-between text-slate-700 mb-4">
+            <span class="text-slate-600">VAT (15%)</span>
+            <span class="font-medium" id="vatTotal">—</span>
+          </div>
+          <div class="flex justify-between font-bold text-lg pt-4 border-t border-slate-200/60">
+            <span class="text-slate-800">Grand Total</span>
+            <span class="text-slate-800" id="grandTotal">—</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Manager Decision -->
+    <section class="bg-white/60 border border-white/40 rounded-3xl p-6 shadow-2xl backdrop-blur-sm">
+      <div class="mb-6">
+        <div class="text-xl font-bold" style="color: var(--reviva-hippy);">Manager Decision</div>
+        <div class="text-sm text-slate-600 mt-1">Approve or reject this offer</div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2">
+          <label class="block text-xs font-medium text-slate-600 mb-2">Comment (required for rejection)</label>
+          <textarea id="managerComment" rows="5"
+                    class="w-full rounded-xl bg-white/90 border border-slate-200/60 px-4 py-3 outline-none focus:ring-2 focus:border-transparent transition-all shadow-sm hover:shadow-md"
+                    style="--tw-ring-color: var(--reviva-blue);"
+                    placeholder="Write your comment here..."></textarea>
+          <div class="text-xs text-slate-500 mt-2">
+            Provide clear feedback for rejection. Approval comments are optional but recommended.
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <button id="btnApprove" class="rounded-xl px-5 py-2.5 text-sm font-medium text-white hover:shadow-lg transition-all"
+                  style="background: linear-gradient(135deg, var(--reviva-green), var(--fountain));">
+            Approve Offer
+          </button>
+          <button id="btnReject" class="rounded-xl border border-red-300/50 bg-red-50/80 px-5 py-2.5 text-sm font-medium text-red-600 hover:bg-red-100 hover:shadow-md transition-all">
+            Reject Offer
+          </button>
+
+          <div class="text-xs text-slate-500 mt-3 pt-3 border-t border-slate-200/60">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+              <span>Available when status is <b>SUBMITTED_TO_MANAGER</b></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span>Client link appears after approval</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Client link (hidden by default) -->
+      <div id="clientLinkBox" class="hidden mt-5 rounded-2xl border border-slate-200 bg-white p-4">
+        <div class="text-slate-500 text-sm font-medium mb-2">Client Portal Link</div>
+
+        <div class="flex flex-col md:flex-row gap-3">
+          <input id="clientLinkInput" class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none" readonly />
+
+          <a id="clientLinkOpen" target="_blank"
+             class="rounded-xl px-4 py-2 font-semibold text-white text-center"
+             style="background: var(--reviva-blue);">
+            Open
+          </a>
+
+          <button id="clientLinkCopy"
+            class="rounded-xl px-4 py-2 font-semibold border border-slate-300 hover:bg-slate-50">
+            Copy
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="../assets/js/pages/offer-review.js?v=20260110"></script>
+</body>
+</html>

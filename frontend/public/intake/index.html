@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="htmlTag">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ريفيڤا - شركة استشارية رائدة في المجال البيئي والهندسي والرقمي. نقدم حلول مستدامة ومبتكرة للشركات والمؤسسات." />
+  <meta name="keywords" content="استشارات بيئية, ESG, هندسة, تحول رقمي, ريفيڤا, REVIVA" />
+  <meta name="author" content="REVIVA" />
+  <title>REVIVA | قسم الاستشارات</title>
+  <!-- Language Support -->
+  <link rel="alternate" hreflang="ar" href="" />
+  <link rel="alternate" hreflang="en" href="" />
+  <link rel="alternate" hreflang="x-default" href="" />
+  <!-- Preconnect to external domains for better performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Cairo Font - Enhanced -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <!-- Lottie Player -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Local CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- i18n Language Support -->
+  <script src="js/i18n.js"></script>
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            scampi: '#635d9e',
+            patina: '#66a286',
+            pictonBlue: '#54c0e8',
+            hippieBlue: '#5f84b5',
+            juniper: '#658a8e',
+            fountainBlue: '#5bb4c2',
+            breakerBay: '#63a597',
+            vibrantPurple: '#4f3ff5',
+            vibrantBlue: '#3a86ff',
+            vibrantTeal: '#06d6a0',
+            vibrantPink: '#ef476f'
+          },
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+            heading: ['Cairo', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/20 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 transition-colors duration-500 overflow-x-hidden font-cairo antialiased">
+  <!-- Skip to main content for accessibility -->
+  <a href="#main-content" class="skip-link">تخطي إلى المحتوى الرئيسي</a>
+
+  <!-- Simplified Navigation Header -->
+  <nav class="fixed top-0 w-full z-[100] px-4 py-3 transition-all duration-300 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border-b border-slate-200/50 dark:border-slate-700/50" id="main-nav" role="navigation" aria-label="القائمة الرئيسية">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+
+      <!-- Left Section: Language Toggle, Dark Mode Toggle & Mobile Menu -->
+      <div class="flex items-center gap-2">
+        <!-- Language Toggle -->
+        <button
+          id="language-toggle"
+          onclick="toggleLanguage()"
+          class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-scampi/30 mr-3"
+          aria-label="تبديل اللغة"
+          title="تبديل اللغة">
+          <i class="fas fa-language text-sm" aria-hidden="true"></i>
+          <span class="text-xs font-bold mr-1" id="lang-text">EN</span>
+        </button>
+
+        <button
+          onclick="toggleDarkMode()"
+          class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-scampi/30"
+          data-i18n-aria="common.darkMode"
+          title="تبديل الوضع الليلي">
+          <i class="fas fa-moon dark:hidden text-sm" aria-hidden="true"></i>
+          <i class="fas fa-sun hidden dark:block text-sm" aria-hidden="true"></i>
+        </button>
+
+        <button
+          id="mobile-menu-btn"
+          class="lg:hidden w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-scampi/30"
+          data-i18n-aria="common.openMenu"
+          aria-expanded="false"
+          aria-controls="mobile-menu">
+          <i class="fas fa-bars text-base" id="menu-icon" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <!-- Center Section: Navigation Links (Desktop) -->
+      <nav class="hidden lg:flex items-center gap-6" aria-label="روابط التنقل الرئيسية">
+        <a href="#about"
+           class="nav-link text-base font-bold text-[#62809a] hover:text-scampi dark:hover:text-picton-blue transition-colors duration-200 py-2 px-2 focus:outline-none focus:ring-2 focus:ring-scampi/30 rounded"
+           data-section="about"
+           data-i18n-aria="nav.about">
+          <span data-i18n="nav.about">من نحن</span>
+        </a>
+        <!-- Services Dropdown -->
+        <div class="relative group" id="services-dropdown">
+          <a href="#services"
+             class="nav-link text-base font-bold text-[#62809a] hover:text-scampi dark:hover:text-picton-blue transition-colors duration-200 py-2 px-2 focus:outline-none focus:ring-2 focus:ring-scampi/30 rounded flex items-center gap-1"
+             data-section="services"
+             data-i18n-aria="nav.services">
+            <span data-i18n="nav.services">خدماتنا</span>
+            <i class="fas fa-chevron-down text-sm transition-transform duration-200 group-hover:rotate-180"></i>
+          </a>
+          <!-- Dropdown Menu -->
+          <div class="absolute top-full right-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 py-2">
+            <a href="#services" class="block px-4 py-3 text-base font-semibold text-slate-800 dark:text-slate-200 hover:bg-scampi/10 dark:hover:bg-scampi/20 hover:text-scampi dark:hover:text-picton-blue transition-colors duration-200">
+              <div class="flex items-center gap-3">
+                <i class="fas fa-leaf text-scampi w-5"></i>
+                <span data-i18n="sections.services.environmental.title">الاستشارات البيئية</span>
+              </div>
+            </a>
+            <a href="#services" class="block px-4 py-3 text-base font-semibold text-slate-800 dark:text-slate-200 hover:bg-patina/10 dark:hover:bg-patina/20 hover:text-patina transition-colors duration-200">
+              <div class="flex items-center gap-3">
+                <i class="fas fa-file-alt text-patina w-5"></i>
+                <span data-i18n="sections.services.permitting.title">التصاريح البيئية والامتثال</span>
+              </div>
+            </a>
+            <a href="#services" class="block px-4 py-3 text-base font-semibold text-slate-800 dark:text-slate-200 hover:bg-vibrantPurple/10 dark:hover:bg-vibrantPurple/20 hover:text-vibrantPurple transition-colors duration-200">
+              <div class="flex items-center gap-3">
+                <i class="fas fa-balance-scale text-vibrantPurple w-5"></i>
+                <span data-i18n="sections.services.esg.title">الحوكمة البيئية والاجتماعية (ESG)</span>
+              </div>
+            </a>
+            <a href="#services" class="block px-4 py-3 text-base font-semibold text-slate-800 dark:text-slate-200 hover:bg-juniper/10 dark:hover:bg-juniper/20 hover:text-juniper transition-colors duration-200">
+              <div class="flex items-center gap-3">
+                <i class="fas fa-hard-hat text-juniper w-5"></i>
+                <span data-i18n="sections.services.engineering.title">الهندسة</span>
+              </div>
+            </a>
+            <a href="#services" class="block px-4 py-3 text-base font-semibold text-slate-800 dark:text-slate-200 hover:bg-fountainBlue/10 dark:hover:bg-fountainBlue/20 hover:text-fountainBlue transition-colors duration-200">
+              <div class="flex items-center gap-3">
+                <i class="fas fa-microchip text-fountainBlue w-5"></i>
+                <span data-i18n="sections.services.digitalization.title">التحول الرقمي</span>
+              </div>
+            </a>
+            <a href="#services" class="block px-4 py-3 text-base font-semibold text-slate-800 dark:text-slate-200 hover:bg-hippieBlue/10 dark:hover:bg-hippieBlue/20 hover:text-hippieBlue transition-colors duration-200">
+              <div class="flex items-center gap-3">
+                <i class="fas fa-graduation-cap text-hippieBlue w-5"></i>
+                <span data-i18n="sections.services.training.title">التدريب البيئي وبناء القدرات</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <a href="#stats"
+           class="nav-link text-base font-bold text-[#62809a] hover:text-scampi dark:hover:text-picton-blue transition-colors duration-200 py-2 px-2 focus:outline-none focus:ring-2 focus:ring-scampi/30 rounded"
+           data-section="stats"
+           data-i18n-aria="nav.stats">
+          <span data-i18n="nav.stats">إنجازاتنا</span>
+        </a>
+        <a href="#testimonials"
+           class="nav-link text-base font-bold text-[#62809a] hover:text-scampi dark:hover:text-picton-blue transition-colors duration-200 py-2 px-2 focus:outline-none focus:ring-2 focus:ring-scampi/30 rounded"
+           data-section="testimonials"
+           data-i18n-aria="nav.testimonials">
+          <span data-i18n="nav.testimonials">اعتمادات</span>
+        </a>
+        <a href="#clients"
+           class="nav-link text-base font-bold text-[#62809a] hover:text-scampi dark:hover:text-picton-blue transition-colors duration-200 py-2 px-2 focus:outline-none focus:ring-2 focus:ring-scampi/30 rounded"
+           data-section="clients"
+           data-i18n-aria="nav.clients">
+          <span data-i18n="nav.clients">عملاؤنا</span>
+        </a>
+        <a href="#contact"
+           class="bg-[#635d9e] text-white text-base font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 hover:bg-[#544e8a] transition-all duration-300 flex items-center gap-2 focus:outline-none focus:ring-4 focus:ring-scampi/30"
+           data-section="contact"
+           data-i18n-aria="nav.contact">
+          <i class="fas fa-paper-plane text-sm"></i>
+          <span data-i18n="nav.contact">تواصل معنا</span>
+        </a>
+      </nav>
+
+      <!-- Right Section: Simple Logo -->
+      <div class="flex items-center gap-2" role="banner">
+        <a href="#main-content" class="flex items-center focus:outline-none focus:ring-2 focus:ring-scampi/30 rounded p-1" aria-label="العودة إلى الصفحة الرئيسية">
+          <div class="w-40 h-14 md:w-20 md:h-16 rounded-lg overflow-hidden bg-white dark:bg-slate-800 p-1.5 border border-slate-200 dark:border-slate-700">
+            <img src="Logo.png" alt="REVIVA Logo" class="w-full h-full object-contain" loading="eager" width="120" height="67">
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- Mobile Menu (Hidden by default, shown via JS) -->
+  <div id="mobile-menu" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[99] lg:hidden opacity-0 invisible transition-all duration-300" aria-hidden="true">
+    <div class="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white dark:bg-slate-900 shadow-2xl transform translate-x-full transition-transform duration-300 ease-out">
+      <div class="flex flex-col h-full p-6">
+        <!-- Mobile Menu Header -->
+        <div class="flex justify-between items-center mb-8 pb-6 border-b border-slate-200 dark:border-slate-700">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-scampi to-picton-blue flex items-center justify-center">
+              <img src="Logo.png" alt="REVIVA" class="w-8 h-8 object-contain" loading="eager">
+            </div>
+            <span class="text-xl font-black bg-gradient-to-r from-scampi to-picton-blue bg-clip-text text-transparent">REVIVA</span>
+          </div>
+          <button
+            id="close-mobile-menu"
+            class="w-10 h-10 rounded-xl bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-red-500 hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-500/30"
+            aria-label="إغلاق القائمة">
+            <i class="fas fa-times text-lg" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <!-- Mobile Menu Navigation -->
+        <nav class="flex-1 space-y-2" aria-label="قائمة التنقل للجوال">
+          <a href="#about" class="mobile-nav-link block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-scampi/10 hover:text-scampi dark:hover:text-picton-blue transition-all font-bold text-base" data-section="about">
+            <i class="fas fa-info-circle w-5 text-center mr-3" aria-hidden="true"></i>
+            <span data-i18n="nav.about">من نحن</span>
+          </a>
+          <a href="#services" class="mobile-nav-link block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-scampi/10 hover:text-scampi dark:hover:text-picton-blue transition-all font-bold text-base" data-section="services">
+            <i class="fas fa-cogs w-5 text-center mr-3" aria-hidden="true"></i>
+            <span data-i18n="nav.services">خدماتنا</span>
+          </a>
+          <a href="#stats" class="mobile-nav-link block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-scampi/10 hover:text-scampi dark:hover:text-picton-blue transition-all font-bold text-base" data-section="stats">
+            <i class="fas fa-trophy w-5 text-center mr-3" aria-hidden="true"></i>
+            <span data-i18n="nav.stats">إنجازاتنا</span>
+          </a>
+          <a href="#testimonials" class="mobile-nav-link block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-scampi/10 hover:text-scampi dark:hover:text-picton-blue transition-all font-bold text-base" data-section="testimonials">
+            <i class="fas fa-certificate w-5 text-center mr-3" aria-hidden="true"></i>
+            <span data-i18n="nav.testimonials">اعتمادات</span>
+          </a>
+          <a href="#clients" class="mobile-nav-link block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-scampi/10 hover:text-scampi dark:hover:text-picton-blue transition-all font-bold text-base" data-section="clients">
+            <i class="fas fa-users w-5 text-center mr-3" aria-hidden="true"></i>
+            <span data-i18n="nav.clients">عملاؤنا</span>
+          </a>
+          <a href="#contact" class="mobile-nav-link block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-scampi/10 hover:text-scampi dark:hover:text-picton-blue transition-all font-bold text-base" data-section="contact">
+            <i class="fas fa-envelope w-5 text-center mr-3" aria-hidden="true"></i>
+            <span data-i18n="nav.contact">تواصل معنا</span>
+          </a>
+        </nav>
+
+        <!-- Mobile Menu Footer -->
+        <div class="pt-6 mt-6 border-t border-slate-200 dark:border-slate-700">
+          <button
+            onclick="toggleDarkMode()"
+            class="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center gap-3 text-slate-700 dark:text-slate-300 hover:bg-scampi/10 hover:text-scampi transition-all font-bold"
+            data-i18n-aria="common.darkMode">
+            <i class="fas fa-moon dark:hidden" aria-hidden="true"></i>
+            <i class="fas fa-sun hidden dark:block" aria-hidden="true"></i>
+            <span data-i18n="common.darkMode">تبديل الوضع الليلي</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Hero Section - Optimized & Unified -->
+  <section id="main-content" class="pt-24 md:pt-28 pb-20 md:pb-32 px-4 relative overflow-hidden" aria-label="قسم البطل الرئيسي">
+    <!-- Optimized Background - Reduced GPU Load -->
+    <div class="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+      <!-- Light gradient background instead of heavy blur -->
+      <div class="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-blue-50/40 via-white to-indigo-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-6xl mx-auto text-center relative z-10 w-full">
+      <!-- Badge with Trust Indicator -->
+      <div class="inline-block mb-4 md:mb-6 animate-fade-in" style="animation-delay: 0.1s;">
+        <div class="inline-flex items-center gap-3 px-5 md:px-8 py-2.5 md:py-3 rounded-full bg-gradient-to-r from-scampi/10 to-pictonBlue/10 dark:from-scampi/20 dark:to-pictonBlue/20 border border-scampi/30 dark:border-pictonBlue/30 shadow-md hover:shadow-lg transition-all duration-300 backdrop-blur-sm">
+          <i class="fas fa-leaf text-scampi dark:text-picton-blue text-base md:text-lg" aria-hidden="true"></i>
+          <span class="text-scampi dark:text-picton-blue font-bold text-xs md:text-sm" data-i18n="hero.badge">الاستشارات البيئية والهندسية</span>
+        </div>
+      </div>
+
+      <!-- Main Title - Responsive Typography -->
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-slate-900 dark:text-white mb-6 md:mb-10 leading-[1.1] tracking-tight animate-fade-in" style="animation-delay: 0.2s;">
+        <span class="block mb-2" id="hero-title-1" data-i18n-html="hero.title1html">
+          حلول <span class="gradient-text">مستدامة</span>
+        </span>
+        <span class="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl" data-i18n="hero.title3">
+          للمستقبل الذي نبنيه معاً
+        </span>
+      </h1>
+
+      <!-- Description - Optimized for readability -->
+      <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-600 dark:text-slate-300 max-w-3xl md:max-w-4xl mx-auto mb-8 md:mb-12 leading-relaxed font-medium animate-fade-in px-4" style="animation-delay: 0.3s;" data-i18n="hero.description">
+        نقدم استشارات متخصصة في المجال البيئي والهندسي والرقمي لإنشاء حلول مبتكرة توازن بين التطور والحفاظ على البيئة
+      </p>
+
+      <!-- Trust Indicators -->
+      <div class="flex flex-wrap items-center justify-center gap-4 md:gap-6 mb-8 md:mb-12 text-sm md:text-base text-slate-600 dark:text-slate-400 animate-fade-in" style="animation-delay: 0.4s;">
+        <div class="flex items-center gap-2">
+          <i class="fas fa-check-circle text-patina text-lg" aria-hidden="true"></i>
+          <span class="font-semibold"><span>30+</span> <span data-i18n="trust.projects">مشروع ناجح</span></span>
+        </div>
+        <div class="hidden sm:flex items-center gap-2">
+          <span class="w-1 h-1 rounded-full bg-slate-400" aria-hidden="true"></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="fas fa-award text-scampi text-lg" aria-hidden="true"></i>
+          <span class="font-semibold"><span>3+</span> <span data-i18n="trust.awards">جائزة و تقدير</span></span>
+        </div>
+        <div class="hidden sm:flex items-center gap-2">
+          <span class="w-1 h-1 rounded-full bg-slate-400" aria-hidden="true"></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="fas fa-users text-picton-blue text-lg" aria-hidden="true"></i>
+          <span class="font-semibold"><span>25+</span> <span data-i18n="trust.clients">عميل راضٍ</span></span>
+        </div>
+      </div>
+
+      <!-- CTA Buttons - Enhanced -->
+      <div class="flex flex-col sm:flex-row gap-4 md:gap-5 justify-center items-center mb-12 md:mb-16 animate-fade-in px-4" style="animation-delay: 0.5s;">
+        <button
+          onclick="openRequestForm()"
+          class="group w-full sm:w-auto bg-gradient-to-r from-scampi to-vibrantPurple text-white px-8 md:px-12 py-4 md:py-6 rounded-2xl font-bold text-base md:text-lg shadow-xl hover:shadow-2xl hover:shadow-scampi/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-3 focus:outline-none focus:ring-4 focus:ring-scampi/30"
+          data-i18n-aria="hero.cta1">
+          <span data-i18n="hero.cta1">اطلب الخدمة الآن</span>
+          <i class="fas fa-paper-plane text-lg group-hover:translate-x-[-4px] group-hover:translate-y-[2px] transition-transform duration-300" aria-hidden="true"></i>
+        </button>
+        <a
+          href="Reviva-Arabic.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group w-full sm:w-auto bg-white dark:bg-slate-800 border-2 border-scampi text-scampi dark:text-picton-blue px-8 md:px-12 py-4 md:py-6 rounded-2xl font-bold text-base md:text-lg shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-3 focus:outline-none focus:ring-4 focus:ring-scampi/30"
+          data-i18n-aria="hero.cta2">
+          <i class="fas fa-download text-lg group-hover:translate-y-1 transition-transform duration-300" aria-hidden="true"></i>
+          <span data-i18n="hero.cta2">تحميل ملفنا التعريفي</span>
+        </a>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:block" aria-hidden="true">
+        <a href="#about" class="flex flex-col items-center gap-2 text-slate-400 dark:text-slate-500 hover:text-scampi dark:hover:text-picton-blue transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-scampi/30 rounded-full p-2" data-i18n-aria="hero.scroll">
+          <span class="text-xs font-medium" data-i18n="hero.scroll">اكتشف المزيد</span>
+          <i class="fas fa-chevron-down text-xl"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Form (Hidden by default) -->
+  <main id="requestFormSection" class="hidden relative pt-16 pb-32 px-4 min-h-screen overflow-hidden">
+    <div class="max-w-6xl mx-auto">
+      <!-- Close Button -->
+      <div class="flex justify-end mb-8">
+        <button onclick="closeRequestForm()" class="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-red-500 hover:text-white transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl">
+          <i class="fas fa-times text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Step Progress -->
+      <div class="flex justify-between items-center mb-20 relative px-4">
+        <div class="absolute top-1/2 left-0 w-full h-2 bg-slate-200/50 dark:bg-slate-800/50 -z-10 -translate-y-1/2 rounded-full overflow-hidden shadow-inner">
+          <div id="progressBar" class="h-full bg-gradient-to-r from-scampi via-pictonBlue to-vibrantPurple w-0 transition-all duration-700 rounded-full shadow-lg"></div>
+        </div>
+        <div class="step-dot active w-16 h-16 rounded-full bg-white dark:bg-slate-900 border-[4px] border-scampi flex items-center justify-center font-bold text-scampi shadow-2xl z-10 backdrop-blur-sm" id="dot1">
+          <i class="fas fa-user text-xl"></i>
+        </div>
+        <div class="step-dot w-16 h-16 rounded-full bg-white dark:bg-slate-900 border-[4px] border-slate-300 dark:border-slate-700 flex items-center justify-center font-bold text-slate-400 z-10 backdrop-blur-sm" id="dot2">
+          <i class="fas fa-cog text-xl"></i>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="glass-panel rounded-[3rem] shadow-2xl border border-white/50 overflow-hidden hover:shadow-3xl transition-shadow duration-500">
+        <div class="p-12 md:p-16 lg:p-20">
+          <form id="multiStepForm">
+            <!-- Step 1 -->
+            <div class="form-step active" id="step1">
+              <div class="mb-12 text-center">
+                <div class="w-24 h-24 rounded-3xl bg-gradient-to-br from-scampi/20 to-pictonBlue/20 flex items-center justify-center mx-auto mb-8 shadow-xl">
+                  <i class="fas fa-user text-4xl text-scampi"></i>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black text-slate-800 dark:text-white mb-4 leading-tight" data-i18n="form.welcome">مرحباً بك في ريفايفا</h2>
+                <p class="text-xl text-slate-600 dark:text-slate-400 font-medium" data-i18n="form.step1">يرجى تزويدنا بمعلومات التواصل والمنشأة</p>
+              </div>
+              <div class="space-y-8">
+                <div class="relative group">
+                  <label class="block text-base font-bold text-slate-700 dark:text-slate-300 mb-3 text-right" data-i18n="form.fullName">الاسم الكامل / اسم المنشأة</label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 right-5 flex items-center text-slate-400">
+                      <i class="fas fa-user text-lg"></i>
+                    </div>
+                    <input type="text" name="fullName" required minlength="3" class="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-transparent focus:border-scampi focus:bg-white dark:focus:bg-slate-900 p-5 rounded-2xl outline-none transition-all duration-300 text-slate-800 dark:text-white font-semibold text-lg pl-4 pr-12 focus:ring-2 focus:ring-scampi/20 focus-ring" data-i18n-placeholder="form.fullName" placeholder="أدخل الاسم هنا..." data-i18n-aria="form.fullName" aria-label="الاسم الكامل أو اسم المنشأة">
+                  </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div>
+                    <label class="block text-base font-bold text-slate-700 dark:text-slate-300 mb-3 text-right" data-i18n="form.email">البريد الإلكتروني</label>
+                    <div class="relative">
+                      <div class="absolute inset-y-0 right-5 flex items-center text-slate-400">
+                        <i class="fas fa-envelope text-lg"></i>
+                      </div>
+                      <input type="email" name="email" required class="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-transparent focus:border-scampi focus:bg-white dark:focus:bg-slate-900 p-5 rounded-2xl outline-none transition-all text-slate-800 dark:text-white font-semibold text-lg pl-4 pr-12 focus:ring-2 focus:ring-scampi/20 focus-ring" placeholder="example@domain.com" data-i18n-aria="form.email" aria-label="البريد الإلكتروني">
+                    </div>
+                  </div>
+                  <div>
+                    <label class="block text-base font-bold text-slate-700 dark:text-slate-300 mb-3 text-right" data-i18n="form.phone">رقم التواصل</label>
+                    <div class="relative">
+                      <div class="absolute inset-y-0 right-5 flex items-center text-slate-400">
+                        <i class="fas fa-phone text-lg"></i>
+                      </div>
+                      <input type="tel" name="phone" required pattern="^(05|5)[0-9]{8,9}$" class="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-transparent focus:border-scampi focus:bg-white dark:focus:bg-slate-900 p-5 rounded-2xl outline-none transition-all text-slate-800 dark:text-white font-semibold text-lg text-right pl-4 pr-12 focus:ring-2 focus:ring-scampi/20 focus-ring" placeholder="05xxxxxxxx" dir="ltr" data-i18n-aria="form.phone" aria-label="رقم التواصل">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="form-step" id="step2">
+              <div class="mb-12 text-center">
+                <div class="w-24 h-24 rounded-3xl bg-gradient-to-br from-patina/20 to-emerald-500/20 flex items-center justify-center mx-auto mb-8 shadow-xl">
+                  <i class="fas fa-cogs text-4xl text-patina"></i>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black text-slate-800 dark:text-white mb-4 leading-tight" data-i18n="form.step2Title">تفاصيل الخدمة</h2>
+                <p class="text-xl text-slate-600 dark:text-slate-400 font-medium" data-i18n="form.step2Description">ساعدنا في فهم متطلباتك لنقدم لك أفضل استشارة</p>
+              </div>
+              <div class="space-y-8">
+                <div>
+                  <label class="block text-base font-bold text-slate-700 dark:text-slate-300 mb-4 text-right" data-i18n="form.service">اختر نوع الخدمة</label>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- 1. الاستشارات البيئية -->
+                    <label class="cursor-pointer group block">
+                      <input type="radio" name="service" value="env" class="hidden peer" required>
+                      <div class="p-5 h-full rounded-2xl border-2 border-slate-200 dark:border-slate-700 peer-checked:border-scampi peer-checked:bg-scampi/5 flex flex-col items-center gap-3 transition-all duration-300">
+                        <div class="p-3 bg-scampi/10 rounded-xl">
+                          <i class="fas fa-leaf text-2xl text-scampi"></i>
+                        </div>
+                        <span class="font-bold text-sm text-slate-600 dark:text-slate-300 text-center" data-i18n="sections.services.environmental.title">الاستشارات البيئية</span>
+                        <div class="custom-radio peer-checked:opacity-100 peer-checked:scale-110 transition-all"></div>
+                      </div>
+                    </label>
+                    <!-- 2. التصاريح البيئية والامتثال -->
+                    <label class="cursor-pointer group block">
+                      <input type="radio" name="service" value="permit" class="hidden peer">
+                      <div class="p-5 h-full rounded-2xl border-2 border-slate-200 dark:border-slate-700 peer-checked:border-patina peer-checked:bg-patina/5 flex flex-col items-center gap-3 transition-all duration-300">
+                        <div class="p-3 bg-patina/10 rounded-xl">
+                          <i class="fas fa-file-alt text-2xl text-patina"></i>
+                        </div>
+                        <span class="font-bold text-sm text-slate-600 dark:text-slate-300 text-center" data-i18n="sections.services.permitting.title">التصاريح البيئية والامتثال</span>
+                        <div class="custom-radio peer-checked:opacity-100 peer-checked:scale-110 transition-all"></div>
+                      </div>
+                    </label>
+                    <!-- 3. الحوكمة البيئية والاجتماعية (ESG) -->
+                    <label class="cursor-pointer group block">
+                      <input type="radio" name="service" value="esg" class="hidden peer">
+                      <div class="p-5 h-full rounded-2xl border-2 border-slate-200 dark:border-slate-700 peer-checked:border-vibrantPurple peer-checked:bg-vibrantPurple/5 flex flex-col items-center gap-3 transition-all duration-300">
+                        <div class="p-3 bg-vibrantPurple/10 rounded-xl">
+                          <i class="fas fa-balance-scale text-2xl text-vibrantPurple"></i>
+                        </div>
+                        <span class="font-bold text-sm text-slate-600 dark:text-slate-300 text-center" data-i18n="sections.services.esg.title">الحوكمة البيئية والاجتماعية (ESG)</span>
+                        <div class="custom-radio peer-checked:opacity-100 peer-checked:scale-110 transition-all"></div>
+                      </div>
+                    </label>
+                    <!-- 4. الهندسة -->
+                    <label class="cursor-pointer group block">
+                      <input type="radio" name="service" value="eng" class="hidden peer">
+                      <div class="p-5 h-full rounded-2xl border-2 border-slate-200 dark:border-slate-700 peer-checked:border-juniper peer-checked:bg-juniper/5 flex flex-col items-center gap-3 transition-all duration-300">
+                        <div class="p-3 bg-juniper/10 rounded-xl">
+                          <i class="fas fa-hard-hat text-2xl text-juniper"></i>
+                        </div>
+                        <span class="font-bold text-sm text-slate-600 dark:text-slate-300 text-center" data-i18n="sections.services.engineering.title">الهندسة</span>
+                        <div class="custom-radio peer-checked:opacity-100 peer-checked:scale-110 transition-all"></div>
+                      </div>
+                    </label>
+                    <!-- 5. التحول الرقمي -->
+                    <label class="cursor-pointer group block">
+                      <input type="radio" name="service" value="dig" class="hidden peer">
+                      <div class="p-5 h-full rounded-2xl border-2 border-slate-200 dark:border-slate-700 peer-checked:border-fountainBlue peer-checked:bg-fountainBlue/5 flex flex-col items-center gap-3 transition-all duration-300">
+                        <div class="p-3 bg-fountainBlue/10 rounded-xl">
+                          <i class="fas fa-microchip text-2xl text-fountainBlue"></i>
+                        </div>
+                        <span class="font-bold text-sm text-slate-600 dark:text-slate-300 text-center" data-i18n="sections.services.digitalization.title">التحول الرقمي</span>
+                        <div class="custom-radio peer-checked:opacity-100 peer-checked:scale-110 transition-all"></div>
+                      </div>
+                    </label>
+                    <!-- 6. التدريب البيئي وبناء القدرات -->
+                    <label class="cursor-pointer group block">
+                      <input type="radio" name="service" value="train" class="hidden peer">
+                      <div class="p-5 h-full rounded-2xl border-2 border-slate-200 dark:border-slate-700 peer-checked:border-hippieBlue peer-checked:bg-hippieBlue/5 flex flex-col items-center gap-3 transition-all duration-300">
+                        <div class="p-3 bg-hippieBlue/10 rounded-xl">
+                          <i class="fas fa-graduation-cap text-2xl text-hippieBlue"></i>
+                        </div>
+                        <span class="font-bold text-sm text-slate-600 dark:text-slate-300 text-center" data-i18n="sections.services.training.title">التدريب البيئي وبناء القدرات</span>
+                        <div class="custom-radio peer-checked:opacity-100 peer-checked:scale-110 transition-all"></div>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <!-- Subservice Selection (hidden by default, shown after main service is selected) -->
+                <div id="subserviceContainer" class="hidden">
+                  <label class="block text-base font-bold text-slate-700 dark:text-slate-300 mb-3 text-right" data-i18n="form.subservice">اختر الخدمة الفرعية</label>
+                  <select name="subservice" id="subserviceSelect" class="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-200 dark:border-slate-700 focus:border-scampi focus:bg-white dark:focus:bg-slate-900 p-4 rounded-2xl outline-none transition-all text-slate-800 dark:text-white font-semibold text-base focus:ring-2 focus:ring-scampi/20" required>
+                    <option value="" data-i18n="form.selectSubservice">-- اختر الخدمة الفرعية --</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-base font-bold text-slate-700 dark:text-slate-300 mb-3 text-right" data-i18n="form.description">وصف المشروع</label>
+                  <div class="relative">
+                    <textarea name="projectDescription" rows="5" maxlength="500" minlength="10" required class="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-transparent focus:border-scampi focus:bg-white dark:focus:bg-slate-900 p-5 rounded-2xl outline-none transition-all text-slate-800 dark:text-white font-semibold text-lg resize-none focus:ring-2 focus:ring-scampi/20 focus-ring pb-16" data-i18n-placeholder="form.description" placeholder="اشرح لنا أكثر عن متطلباتك..." data-i18n-aria="form.description" aria-label="وصف المشروع"></textarea>
+                    <div class="absolute bottom-4 left-4 text-sm text-slate-400 dark:text-slate-500 font-medium">
+                      <span id="charCount">0</span>/500 <span data-i18n="form.charCount">حرف</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Attachments Upload -->
+                <div>
+                  <label class="block text-base font-bold text-slate-700 dark:text-slate-300 mb-3 text-right" data-i18n="form.attachments">المرفقات (اختياري)</label>
+                  <div class="relative">
+                    <input type="file" name="attachments" id="attachmentsInput" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.zip,.rar" class="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-200 dark:border-slate-700 focus:border-scampi focus:bg-white dark:focus:bg-slate-900 p-4 rounded-2xl outline-none transition-all text-slate-800 dark:text-white font-semibold text-base file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-scampi/10 file:text-scampi hover:file:bg-scampi/20 file:cursor-pointer focus:ring-2 focus:ring-scampi/20" data-i18n-aria="form.attachments" aria-label="المرفقات">
+                    <p class="mt-2 text-sm text-slate-500 dark:text-slate-400 text-right" data-i18n="form.attachmentsHint">يمكنك رفع ملفات PDF، Word، Excel، صور، أو ملفات مضغوطة (حجم الملف الواحد لا يتجاوز 10MB)</p>
+                    <div id="attachmentsPreview" class="mt-3 space-y-2"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Buttons -->
+            <div class="mt-20 flex items-center justify-between gap-6">
+              <button type="button" id="prevBtn" class="hidden px-12 py-6 rounded-2xl border-2 border-slate-300 dark:border-slate-600 font-bold text-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-scampi hover:text-scampi transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl">
+                <i class="fas fa-arrow-right text-lg"></i>
+                <span data-i18n="form.prev">السابق</span>
+              </button>
+              <div class="flex-1"></div>
+              <button type="button" id="nextBtn" class="bg-gradient-to-r from-scampi to-vibrantPurple text-white px-14 py-6 rounded-2xl font-black text-lg shadow-2xl shadow-scampi/40 hover:scale-[1.05] active:scale-95 transition-all duration-300 flex items-center gap-3 hover:shadow-scampi/50">
+                <span id="btnText" data-i18n="form.next">التالي</span>
+                <i class="fas fa-chevron-left" id="btnIcon"></i>
+                <div id="btnLoader" class="hidden w-6 h-6 border-[3px] border-white border-t-transparent loader rounded-full"></div>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- About -->
+  <section id="about" class="max-w-7xl mx-auto px-4 py-24 fade-in">
+    <div class="text-center mb-20">
+      <h2 class="text-5xl md:text-6xl font-black text-slate-800 dark:text-white mb-6 leading-tight" data-i18n="sections.about.title">من نحن</h2>
+      <div class="w-32 h-2 bg-gradient-to-r from-scampi via-pictonBlue to-vibrantPurple mx-auto rounded-full shadow-lg"></div>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div class="glass-panel p-10 rounded-3xl">
+        <p class="text-xl text-slate-600 dark:text-slate-300 leading-relaxed mb-8 font-medium" data-i18n="sections.about.description">
+          قسم الاستشارات و الخدمات البيئية و الهندسية بشركة ريفايفا الرائدة في قطاع ادارة و معالجة النفايات الصناعية- نحن في قسم الاستشاراتنتشرف بتقديم الحلول البيئية والهندسية والرقمية للشركات والمؤسسات. نحن نؤمن بأن الاستدامة والابتكار هما مفتاح المستقبل.
+        </p>
+        <p class="text-xl text-slate-600 dark:text-slate-300 leading-relaxed mb-10 font-medium" data-i18n="sections.about.since">
+          منذ عام 2023، نعمل مع العملاء لتحويل التحديات البيئية والهندسية إلى فرص للنمو المستدام، مع التركيز على حلول مبتكرة وعملية تلبي أفضل الممارسات العالمية.
+        </p>
+      </div>
+
+      <!-- Timeline -->
+      <div class="relative">
+        <div class="absolute top-0 bottom-0 right-6 w-[3px] opacity-70" style="background: linear-gradient(to bottom, #635d9e 0%, #66a286 33%, #54c0e8 66%, #658a8e 100%);"></div>
+        <div class="space-y-8">
+          <div class="relative flex items-start gap-4">
+            <div class="w-12 h-12 rounded-full bg-scampi text-white flex items-center justify-center font-bold shadow-lg z-10" data-i18n="sections.about.timeline.founded.year">2009</div>
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-md px-4 py-3 flex-1">
+              <h4 class="text-base md:text-lg font-black text-slate-800 dark:text-white mb-1" data-i18n="sections.about.timeline.founded.title">تأسيس الشركة</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="sections.about.timeline.founded.description">
+                انطلقت مسيرتنا في عام 2009 ككيان ناشئ يحمل رؤية طموحة لوضع معايير جديدة في قطاع الأعمال المحلي. مع التركيز على الجودة والنمو المستدام.
+              </p>
+            </div>
+          </div>
+
+          <div class="relative flex items-start gap-4">
+            <div class="w-12 h-12 rounded-full bg-patina text-white flex items-center justify-center font-bold shadow-lg z-10" data-i18n="sections.about.timeline.acquisition.year">2020</div>
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-md px-4 py-3 flex-1">
+              <h4 class="text-base md:text-lg font-black text-slate-800 dark:text-white mb-1" data-i18n="sections.about.timeline.acquisition.title">الاستحواذ الاستراتيجي</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="sections.about.timeline.acquisition.description">
+                في عام 2020، تم الاستحواذ على الشركة من قبل صندوق الاستثمارات العامة السعودي (PIF)، مما أطلق مرحلة جديدة من التوسع العالمي والتمكين المالي الضخم.
+              </p>
+            </div>
+          </div>
+
+          <div class="relative flex items-start gap-4">
+            <div class="w-12 h-12 rounded-full bg-pictonBlue text-white flex items-center justify-center font-bold shadow-lg z-10" data-i18n="sections.about.timeline.launch.year">2022</div>
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-md px-4 py-3 flex-1">
+              <h4 class="text-base md:text-lg font-black text-slate-800 dark:text-white mb-1" data-i18n="sections.about.timeline.launch.title">إطلاق الخدمات الاستشارية</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="sections.about.timeline.launch.description">
+                توجنا مسيرة النمو في 2022 بتأسيس قسم "الخدمات الاستشارية"، لنقدم خبراتنا العميقة وحلولنا المبتكرة لدعم نجاح شركائنا وعملائنا في مختلف القطاعات.
+              </p>
+            </div>
+          </div>
+
+          <div class="relative flex items-start gap-4">
+            <div class="w-12 h-12 rounded-full bg-juniper text-white flex items-center justify-center font-bold shadow-lg z-10" data-i18n="sections.about.timeline.engineering.year">2026</div>
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-md px-4 py-3 flex-1">
+              <h4 class="text-base md:text-lg font-black text-slate-800 dark:text-white mb-1" data-i18n="sections.about.timeline.engineering.title">إطلاق خدمة الاستشارات الهندسية</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="sections.about.timeline.engineering.description">
+                في عام 2026، أطلقنا خدمة الاستشارات الهندسية المتخصصة لتقديم حلول هندسية شاملة ومبتكرة تلبي احتياجات المشاريع المختلفة من التصميم إلى التنفيذ والإشراف.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="max-w-7xl mx-auto px-4 py-24 fade-in">
+    <div class="text-center mb-20">
+      <h2 class="text-5xl md:text-6xl font-black text-slate-800 dark:text-white mb-6 leading-tight" data-i18n="sections.services.title">خدماتنا</h2>
+      <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-6 font-medium" data-i18n="sections.services.description">
+        نقدم مجموعة شاملة من الخدمات الاستشارية البيئية والهندسية والرقمية
+      </p>
+      <div class="w-32 h-2 bg-gradient-to-r from-scampi via-pictonBlue to-vibrantPurple mx-auto rounded-full shadow-lg"></div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+
+      <!-- خدمة 1: الاستشارات البيئية -->
+      <div class="service-card glass-panel rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 group">
+        <div class="p-6 md:p-8 cursor-pointer" onclick="toggleServiceDetails(this)">
+          <div class="w-16 h-16 md:w-20 md:h-20 rounded-3xl bg-scampi/10 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+            <i class="fas fa-leaf text-3xl md:text-4xl text-scampi"></i>
+          </div>
+          <h3 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white mb-3 text-center" data-i18n="sections.services.environmental.title">الاستشارات البيئية</h3>
+          <p class="text-base md:text-lg text-slate-600 dark:text-slate-300 text-center leading-relaxed font-medium mb-4" data-i18n="sections.services.environmental.description">
+            استشارات متخصصة في المجال البيئي لتقييم الأثر البيئي وتقديم الحلول المستدامة
+          </p>
+          <div class="flex items-center justify-center gap-2 text-scampi dark:text-picton-blue text-sm font-bold">
+            <span data-i18n="sections.services.viewDetails">عرض التفاصيل</span>
+            <i class="fas fa-chevron-down service-chevron transition-transform duration-300"></i>
+          </div>
+        </div>
+        <div class="service-details hidden max-h-0 overflow-hidden transition-all duration-500">
+          <div class="px-6 md:px-8 pb-6 md:pb-8 pt-0 border-t border-slate-200/50 dark:border-slate-700/50">
+            <ul class="space-y-3 mt-4">
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-scampi dark:text-picton-blue mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.environmental.subservices.0">تقييم الأثر البيئي (EIA / ESIA / EMP)</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-scampi dark:text-picton-blue mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.environmental.subservices.1">المراقبة والقياسات البيئية</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-scampi dark:text-picton-blue mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.environmental.subservices.2">نمذجة انتشار الهواء - US EPA AERMOD</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-scampi dark:text-picton-blue mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.environmental.subservices.3">إدارة المخاطر البيئية</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-scampi dark:text-picton-blue mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.environmental.subservices.4">إدارة النفايات ومكافحة التلوث</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-scampi dark:text-picton-blue mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.environmental.subservices.5">المراجعة البيئية والاجتماعية (الصناعية والسكنية)</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-scampi dark:text-picton-blue mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.environmental.subservices.6">دراسات التنوع البيولوجي والموارد الطبيعية</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-scampi dark:text-picton-blue mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.environmental.subservices.7">تقييم الأراضي والتربة</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-scampi dark:text-picton-blue mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.environmental.subservices.8">دراسات الموارد المائية والهيدرولوجية</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-scampi dark:text-picton-blue mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.environmental.subservices.9">الدراسات البحرية والساحلية البيئية</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- خدمة 2: التصاريح البيئية والامتثال -->
+      <div class="service-card glass-panel rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 group">
+        <div class="p-6 md:p-8 cursor-pointer" onclick="toggleServiceDetails(this)">
+          <div class="w-16 h-16 md:w-20 md:h-20 rounded-3xl bg-patina/10 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+            <i class="fas fa-file-alt text-3xl md:text-4xl text-patina"></i>
+          </div>
+          <h3 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white mb-3 text-center" data-i18n="sections.services.permitting.title">التصاريح البيئية والامتثال</h3>
+          <p class="text-base md:text-lg text-slate-600 dark:text-slate-300 text-center leading-relaxed font-medium mb-4" data-i18n="sections.services.permitting.description">
+            خدمات الحصول على التصاريح البيئية والامتثال للمعايير واللوائح
+          </p>
+          <div class="flex items-center justify-center gap-2 text-patina text-sm font-bold">
+            <span data-i18n="sections.services.viewDetails">عرض التفاصيل</span>
+            <i class="fas fa-chevron-down service-chevron transition-transform duration-300"></i>
+          </div>
+        </div>
+        <div class="service-details hidden max-h-0 overflow-hidden transition-all duration-500">
+          <div class="px-6 md:px-8 pb-6 md:pb-8 pt-0 border-t border-slate-200/50 dark:border-slate-700/50">
+            <ul class="space-y-3 mt-4">
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-patina mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.permitting.subservices.0">EPC (MWAN, NCEC, MEWA & RCJY)</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-patina mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.permitting.subservices.1">EPO (MWAN, NCEC, MEWA & RCJY)</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- خدمة 3: الحوكمة البيئية والاجتماعية (ESG) -->
+      <div class="service-card glass-panel rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 group">
+        <div class="p-6 md:p-8 cursor-pointer" onclick="toggleServiceDetails(this)">
+          <div class="w-16 h-16 md:w-20 md:h-20 rounded-3xl bg-vibrantPurple/10 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+            <i class="fas fa-balance-scale text-3xl md:text-4xl text-vibrantPurple"></i>
+          </div>
+          <h3 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white mb-3 text-center" data-i18n="sections.services.esg.title">الحوكمة البيئية والاجتماعية (ESG)</h3>
+          <p class="text-base md:text-lg text-slate-600 dark:text-slate-300 text-center leading-relaxed font-medium mb-4" data-i18n="sections.services.esg.description">
+            خدمات متخصصة في تطبيق معايير الحوكمة البيئية والاجتماعية لتحقيق الاستدامة
+          </p>
+          <div class="flex items-center justify-center gap-2 text-vibrantPurple text-sm font-bold">
+            <span data-i18n="sections.services.viewDetails">عرض التفاصيل</span>
+            <i class="fas fa-chevron-down service-chevron transition-transform duration-300"></i>
+          </div>
+        </div>
+        <div class="service-details hidden max-h-0 overflow-hidden transition-all duration-500">
+          <div class="px-6 md:px-8 pb-6 md:pb-8 pt-0 border-t border-slate-200/50 dark:border-slate-700/50">
+            <ul class="space-y-3 mt-4">
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-vibrantPurple mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.esg.subservices.0">إطار عمل ESG</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-vibrantPurple mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.esg.subservices.1">تقارير ESG</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-vibrantPurple mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.esg.subservices.2">البصمة الكربونية</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-vibrantPurple mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.esg.subservices.3">استراتيجيات التخفيف من غازات الدفيئة</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-vibrantPurple mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.esg.subservices.4">معالجة وإدارة المياه العادمة</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-vibrantPurple mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.esg.subservices.5">تحويل النفايات إلى طاقة</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-vibrantPurple mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.esg.subservices.6">استشارات نمذجة السواحل وتغير المناخ</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- خدمة 4: الهندسة -->
+      <div class="service-card glass-panel rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 group">
+        <div class="p-6 md:p-8 cursor-pointer" onclick="toggleServiceDetails(this)">
+          <div class="w-16 h-16 md:w-20 md:h-20 rounded-3xl bg-juniper/10 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+            <i class="fas fa-hard-hat text-3xl md:text-4xl text-juniper"></i>
+          </div>
+          <h3 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white mb-3 text-center" data-i18n="sections.services.engineering.title">الهندسة</h3>
+          <p class="text-base md:text-lg text-slate-600 dark:text-slate-300 text-center leading-relaxed font-medium mb-4" data-i18n="sections.services.engineering.description">
+            خدمات هندسية شاملة تتراوح من التصميم إلى التنفيذ والإشراف على المشاريع
+          </p>
+          <div class="flex items-center justify-center gap-2 text-juniper text-sm font-bold">
+            <span data-i18n="sections.services.viewDetails">عرض التفاصيل</span>
+            <i class="fas fa-chevron-down service-chevron transition-transform duration-300"></i>
+          </div>
+        </div>
+        <div class="service-details hidden max-h-0 overflow-hidden transition-all duration-500">
+          <div class="px-6 md:px-8 pb-6 md:pb-8 pt-0 border-t border-slate-200/50 dark:border-slate-700/50">
+            <ul class="space-y-3 mt-4">
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-juniper mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.engineering.subservices.0">خدمات نظم المعلومات الجغرافية (GIS)</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-juniper mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.engineering.subservices.1">الدراسات الطبوغرافية</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-juniper mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.engineering.subservices.2">المسح الأرضي</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-juniper mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.engineering.subservices.3">تنفيذ ومراقبة وتصميم المطامر والبرك</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-juniper mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.engineering.subservices.4">خدمات بطانة HDPE</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-juniper mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.engineering.subservices.5">قياس الكميات</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- خدمة 5: التحول الرقمي -->
+      <div class="service-card glass-panel rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 group">
+        <div class="p-6 md:p-8 cursor-pointer" onclick="toggleServiceDetails(this)">
+          <div class="w-16 h-16 md:w-20 md:h-20 rounded-3xl bg-fountainBlue/10 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+            <i class="fas fa-microchip text-3xl md:text-4xl text-fountainBlue"></i>
+          </div>
+          <h3 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white mb-3 text-center" data-i18n="sections.services.digitalization.title">التحول الرقمي</h3>
+          <p class="text-base md:text-lg text-slate-600 dark:text-slate-300 text-center leading-relaxed font-medium mb-4" data-i18n="sections.services.digitalization.description">
+            حلول رقمية متكاملة لتحويل عملياتك وإدارة مواردك بكفاءة عالية
+          </p>
+          <div class="flex items-center justify-center gap-2 text-fountainBlue text-sm font-bold">
+            <span data-i18n="sections.services.viewDetails">عرض التفاصيل</span>
+            <i class="fas fa-chevron-down service-chevron transition-transform duration-300"></i>
+          </div>
+        </div>
+        <div class="service-details hidden max-h-0 overflow-hidden transition-all duration-500">
+          <div class="px-6 md:px-8 pb-6 md:pb-8 pt-0 border-t border-slate-200/50 dark:border-slate-700/50">
+            <p class="text-sm md:text-base text-slate-500 dark:text-slate-400 text-center mt-4 italic" data-i18n="sections.services.comingSoon">
+              قريباً: سيتم إضافة تفاصيل الخدمات الرقمية
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- خدمة 6: التدريب البيئي وبناء القدرات -->
+      <div class="service-card glass-panel rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 group">
+        <div class="p-6 md:p-8 cursor-pointer" onclick="toggleServiceDetails(this)">
+          <div class="w-16 h-16 md:w-20 md:h-20 rounded-3xl bg-hippieBlue/10 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+            <i class="fas fa-graduation-cap text-3xl md:text-4xl text-hippieBlue"></i>
+          </div>
+          <h3 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white mb-3 text-center" data-i18n="sections.services.training.title">التدريب البيئي وبناء القدرات</h3>
+          <p class="text-base md:text-lg text-slate-600 dark:text-slate-300 text-center leading-relaxed font-medium mb-4" data-i18n="sections.services.training.description">
+            برامج تدريبية متخصصة لبناء القدرات وتطوير المهارات في المجالات البيئية والاستدامة
+          </p>
+          <div class="flex items-center justify-center gap-2 text-hippieBlue text-sm font-bold">
+            <span data-i18n="sections.services.viewDetails">عرض التفاصيل</span>
+            <i class="fas fa-chevron-down service-chevron transition-transform duration-300"></i>
+          </div>
+        </div>
+        <div class="service-details hidden max-h-0 overflow-hidden transition-all duration-500">
+          <div class="px-6 md:px-8 pb-6 md:pb-8 pt-0 border-t border-slate-200/50 dark:border-slate-700/50">
+            <ul class="space-y-3 mt-4">
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-hippieBlue mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.training.subservices.0">التدريب على التوعية البيئية</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-hippieBlue mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.training.subservices.1">تحديد النفايات</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-hippieBlue mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.training.subservices.2">التعامل مع المواد الكيميائية</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-hippieBlue mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.training.subservices.3">H2S</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300">
+                <i class="fas fa-check-circle text-hippieBlue mt-1 flex-shrink-0" aria-hidden="true"></i>
+                <span data-i18n="sections.services.training.subservices.4">تدريب إدارة النفايات</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section id="stats" class="max-w-7xl mx-auto px-4 py-24 fade-in">
+    <div class="text-center mb-20">
+      <h2 class="text-5xl md:text-6xl font-black text-slate-800 dark:text-white mb-6 leading-tight" data-i18n="sections.stats.title">إنجازاتنا</h2>
+      <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-6 font-medium" data-i18n="sections.stats.description">
+        نقدم لك نتائج ملموسة ومؤثرة في المشاريع البيئية والهندسية
+      </p>
+      <div class="w-32 h-2 bg-gradient-to-r from-scampi via-pictonBlue to-vibrantPurple mx-auto rounded-full shadow-lg"></div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="stat-card glass-panel p-10 rounded-3xl text-center">
+        <div class="w-20 h-20 rounded-3xl bg-scampi/10 flex items-center justify-center mx-auto mb-6">
+          <i class="fas fa-project-diagram text-4xl text-scampi"></i>
+        </div>
+        <div class="text-5xl font-black text-scampi mb-3">30+</div>
+        <div class="text-xl font-bold text-slate-800 dark:text-white" data-i18n="trust.projects">مشروع ناجح</div>
+      </div>
+      <div class="stat-card glass-panel p-10 rounded-3xl text-center">
+        <div class="w-20 h-20 rounded-3xl bg-patina/10 flex items-center justify-center mx-auto mb-6">
+          <i class="fas fa-trophy text-4xl text-patina"></i>
+        </div>
+        <div class="text-5xl font-black text-patina mb-3">3+</div>
+        <div class="text-xl font-bold text-slate-800 dark:text-white" data-i18n="trust.awards">جائزة و تقدير</div>
+      </div>
+      <div class="stat-card glass-panel p-10 rounded-3xl text-center">
+        <div class="w-20 h-20 rounded-3xl bg-vibrantPurple/10 flex items-center justify-center mx-auto mb-6">
+          <i class="fas fa-users text-4xl text-vibrantPurple"></i>
+        </div>
+        <div class="text-5xl font-black text-vibrantPurple mb-3">25+</div>
+        <div class="text-xl font-bold text-slate-800 dark:text-white" data-i18n="trust.clients">عميل راضٍ</div>
+      </div>
+      <div class="stat-card glass-panel p-10 rounded-3xl text-center">
+        <div class="w-20 h-20 rounded-3xl bg-hippieBlue/10 flex items-center justify-center mx-auto mb-6">
+          <i class="fas fa-leaf text-4xl text-hippieBlue"></i>
+        </div>
+        <div class="text-5xl font-black text-hippieBlue mb-3">91%</div>
+        <div class="text-xl font-bold text-slate-800 dark:text-white" data-i18n="trust.satisfaction">رضا العملاء</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Accreditations Section -->
+  <section id="testimonials" class="max-w-7xl mx-auto px-4 py-24 fade-in">
+    <div class="text-center mb-20">
+      <h2 class="text-5xl md:text-6xl font-black text-slate-800 dark:text-white mb-6 leading-tight" data-i18n="sections.testimonials.title">الاعتمادات</h2>
+      <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-6 font-medium" data-i18n="sections.testimonials.description">
+        نحن معتمدون بأعلى المعايير الدولية للجودة والبيئة والسلامة
+      </p>
+      <div class="w-32 h-2 bg-gradient-to-r from-scampi via-pictonBlue to-vibrantPurple mx-auto rounded-full shadow-lg"></div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <!-- ISO 9001:2015 -->
+      <div class="glass-panel p-8 rounded-3xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex items-center justify-center group">
+        <img src="pics/Authorizations/ISO-9001-2015.png" alt="ISO 9001:2015" class="max-h-48 w-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300" loading="lazy">
+      </div>
+      <!-- ISO 45001 -->
+      <div class="glass-panel p-8 rounded-3xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex items-center justify-center group">
+        <img src="pics/Authorizations/ISO-45001.png" alt="ISO 45001" class="max-h-48 w-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300" loading="lazy">
+      </div>
+      <!-- ISO 14001 -->
+      <div class="glass-panel p-8 rounded-3xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex items-center justify-center group">
+        <img src="pics/Authorizations/ISO14001.png" alt="ISO 14001" class="max-h-48 w-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- Clients Section -->
+  <section id="clients" class="max-w-7xl mx-auto px-4 py-24 fade-in">
+    <div class="text-center mb-20">
+      <h2 class="text-5xl md:text-6xl font-black text-slate-800 dark:text-white mb-6 leading-tight" data-i18n="sections.clients.title">عملاؤنا</h2>
+      <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-6 font-medium" data-i18n="sections.clients.description">
+        نحن فخورون بخدمة مجموعة متميزة من العملاء والشركات الرائدة في المملكة
+      </p>
+      <div class="w-32 h-2 bg-gradient-to-r from-scampi via-pictonBlue to-vibrantPurple mx-auto rounded-full shadow-lg"></div>
+    </div>
+    <div class="relative overflow-hidden py-4">
+      <div class="clients-carousel flex gap-6 md:gap-8">
+        <!-- First set of logos -->
+        <div class="client-logo flex-shrink-0 glass-panel p-6 rounded-2xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group" style="min-width: calc(50% - 12px); width: calc(50% - 12px);">
+          <img src="pics/clients/Marafiq.png" alt="Marafiq" class="max-h-20 w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0" loading="lazy">
+        </div>
+        <div class="client-logo flex-shrink-0 glass-panel p-6 rounded-2xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group" style="min-width: calc(50% - 12px); width: calc(50% - 12px);">
+          <img src="pics/clients/ncec.png" alt="NCEC" class="max-h-20 w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0" loading="lazy">
+        </div>
+        <div class="client-logo flex-shrink-0 glass-panel p-6 rounded-2xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group" style="min-width: calc(50% - 12px); width: calc(50% - 12px);">
+          <img src="pics/clients/ncwm.png" alt="NCWM" class="max-h-20 w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0">
+        </div>
+        <div class="client-logo flex-shrink-0 glass-panel p-6 rounded-2xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group" style="min-width: calc(50% - 12px); width: calc(50% - 12px);">
+          <img src="pics/clients/nwc.png" alt="NWC" class="max-h-20 w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0">
+        </div>
+        <div class="client-logo flex-shrink-0 glass-panel p-6 rounded-2xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group" style="min-width: calc(50% - 12px); width: calc(50% - 12px);">
+          <img src="pics/clients/Petro_Rabigh.png" alt="Petro Rabigh" class="max-h-20 w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0">
+        </div>
+        <div class="client-logo flex-shrink-0 glass-panel p-6 rounded-2xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group" style="min-width: calc(50% - 12px); width: calc(50% - 12px);">
+          <img src="pics/clients/rcf.png" alt="RCF" class="max-h-20 w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0">
+        </div>
+        <div class="client-logo flex-shrink-0 glass-panel p-6 rounded-2xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group" style="min-width: calc(50% - 12px); width: calc(50% - 12px);">
+          <img src="pics/clients/saudi-customs.png" alt="Saudi Customs" class="max-h-20 w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0">
+        </div>
+        <div class="client-logo flex-shrink-0 glass-panel p-6 rounded-2xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group" style="min-width: calc(50% - 12px); width: calc(50% - 12px);">
+          <img src="pics/clients/sec.png" alt="SEC" class="max-h-20 w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0">
+        </div>
+        <div class="client-logo flex-shrink-0 glass-panel p-6 rounded-2xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group" style="min-width: calc(50% - 12px); width: calc(50% - 12px);">
+          <img src="pics/clients/swcc.png" alt="SWCC" class="max-h-20 w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0">
+        </div>
+        <!-- Duplicate set for infinite loop -->
+        <div class="client-logo flex-shrink-0 glass-panel p-6 rounded-2xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group" style="min-width: calc(50% - 12px); width: calc(50% - 12px);">
+          <img src="pics/clients/Marafiq.png" alt="Marafiq" class="max-h-20 w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0" loading="lazy">
+        </div>
+        <div class="client-logo flex-shrink-0 glass-panel p-6 rounded-2xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group" style="min-width: calc(50% - 12px); width: calc(50% - 12px);">
+          <img src="pics/clients/ncec.png" alt="NCEC" class="max-h-20 w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0" loading="lazy">
+        </div>
+        <div class="client-logo flex-shrink-0 glass-panel p-6 rounded-2xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group" style="min-width: calc(50% - 12px); width: calc(50% - 12px);">
+          <img src="pics/clients/ncwm.png" alt="NCWM" class="max-h-20 w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0">
+        </div>
+        <div class="client-logo flex-shrink-0 glass-panel p-6 rounded-2xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group" style="min-width: calc(50% - 12px); width: calc(50% - 12px);">
+          <img src="pics/clients/nwc.png" alt="NWC" class="max-h-20 w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0">
+        </div>
+        <div class="client-logo flex-shrink-0 glass-panel p-6 rounded-2xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group" style="min-width: calc(50% - 12px); width: calc(50% - 12px);">
+          <img src="pics/clients/Petro_Rabigh.png" alt="Petro Rabigh" class="max-h-20 w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0">
+        </div>
+        <div class="client-logo flex-shrink-0 glass-panel p-6 rounded-2xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group" style="min-width: calc(50% - 12px); width: calc(50% - 12px);">
+          <img src="pics/clients/rcf.png" alt="RCF" class="max-h-20 w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0">
+        </div>
+        <div class="client-logo flex-shrink-0 glass-panel p-6 rounded-2xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group" style="min-width: calc(50% - 12px); width: calc(50% - 12px);">
+          <img src="pics/clients/saudi-customs.png" alt="Saudi Customs" class="max-h-20 w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0">
+        </div>
+        <div class="client-logo flex-shrink-0 glass-panel p-6 rounded-2xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group" style="min-width: calc(50% - 12px); width: calc(50% - 12px);">
+          <img src="pics/clients/sec.png" alt="SEC" class="max-h-20 w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0">
+        </div>
+        <div class="client-logo flex-shrink-0 glass-panel p-6 rounded-2xl flex items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer group" style="min-width: calc(50% - 12px); width: calc(50% - 12px);">
+          <img src="pics/clients/swcc.png" alt="SWCC" class="max-h-20 w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section with REAL MAP -->
+  <section id="contact" class="max-w-7xl mx-auto px-4 py-24 fade-in">
+    <div class="text-center mb-20">
+      <h2 class="text-5xl md:text-6xl font-black text-slate-800 dark:text-white mb-6 leading-tight" data-i18n="sections.contact.title">تواصل معنا</h2>
+      <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-6 font-medium" data-i18n="sections.contact.description">
+        نحن هنا لمساعدتك في مشاريعك البيئية والهندسية
+      </p>
+      <div class="w-32 h-2 bg-gradient-to-r from-scampi via-pictonBlue to-vibrantPurple mx-auto rounded-full shadow-lg"></div>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+      <div class="glass-panel p-10 rounded-3xl">
+        <div class="mb-10">
+          <h3 class="text-3xl font-bold text-slate-800 dark:text-white mb-3" data-i18n="sections.contact.office">مكتبنا الرئيسي</h3>
+          <p class="text-xl text-slate-600 dark:text-slate-300 font-medium" data-i18n="sections.contact.location">جدة، حي النهضة، مبنى REVIVA</p>
+        </div>
+        <div class="space-y-8 mb-12">
+          <div class="flex items-start gap-5">
+            <div class="w-14 h-14 rounded-2xl bg-scampi/10 flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-phone-alt text-scampi text-xl"></i>
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-slate-800 dark:text-white mb-2" data-i18n="sections.contact.phone">الهاتف</h4>
+              <p class="text-lg text-slate-600 dark:text-slate-300 font-medium">+966 12 123 4567</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-5">
+            <div class="w-14 h-14 rounded-2xl bg-scampi/10 flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-envelope text-scampi text-xl"></i>
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-slate-800 dark:text-white mb-2" data-i18n="sections.contact.email">البريد الإلكتروني</h4>
+              <p class="text-lg text-slate-600 dark:text-slate-300 font-medium">info@reviva.sa</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-5">
+            <div class="w-14 h-14 rounded-2xl bg-scampi/10 flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-clock text-scampi text-xl"></i>
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-slate-800 dark:text-white mb-2" data-i18n="sections.contact.hours">ساعات العمل</h4>
+              <p class="text-lg text-slate-600 dark:text-slate-300 font-medium" data-i18n="sections.contact.hoursValue">الأحد - الخميس: 8:00 صباحاً - 5:00 مساءً</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-4">
+          <a href="https://wa.me/966562557157" target="_blank" class="flex items-center gap-3 bg-green-500 text-white px-6 py-4 rounded-xl hover:bg-green-600 transition-all duration-300 font-bold text-lg shadow-lg hover:shadow-xl">
+            <i class="fab fa-whatsapp text-xl"></i>
+            <span data-i18n="footer.whatsapp">واتساب</span>
+          </a>
+          <a href="mailto:alobaid.a@reviva.sa" class="flex items-center gap-3 bg-red-500 text-white px-6 py-4 rounded-xl hover:bg-red-600 transition-all duration-300 font-bold text-lg shadow-lg hover:shadow-xl">
+            <i class="fas fa-envelope text-xl"></i>
+            <span data-i18n="footer.email">البريد الإلكتروني</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- الخريطة الحقيقية -->
+      <div class="map-container glass-panel rounded-2xl overflow-hidden" style="min-height: 400px;">
+        <div id="contact-map" class="w-full h-full" style="min-height: 400px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-20 bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 border-t-2 border-slate-200 dark:border-slate-700">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-scampi to-vibrantPurple flex items-center justify-center shadow-lg overflow-hidden p-1.5">
+              <img src="Logo.png" alt="REVIVA Logo" class="w-full h-full object-contain">
+            </div>
+            <span class="text-3xl font-black tracking-tighter text-slate-800 dark:text-white">REVIVA</span>
+          </div>
+          <p class="text-lg text-slate-600 dark:text-slate-300 mb-8 leading-relaxed font-medium" data-i18n="footer.description">
+            نحن قسم الاستشارات في شركة ريفايفا  نقدم حلولًا بيئية وهندسية مبتكرة لتحقيق أهداف الاستدامة والنمو المسؤول.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <span class="badge bg-scampi/10 text-scampi dark:bg-scampi/20 dark:text-pictonBlue px-4 py-2 text-sm font-bold" data-i18n="footer.sustainability">استدامة</span>
+            <span class="badge bg-scampi/10 text-scampi dark:bg-scampi/20 dark:text-pictonBlue px-4 py-2 text-sm font-bold" data-i18n="footer.innovation">ابتكار</span>
+            <span class="badge bg-scampi/10 text-scampi dark:bg-scampi/20 dark:text-pictonBlue px-4 py-2 text-sm font-bold" data-i18n="footer.quality">نوعية</span>
+            <span class="badge bg-scampi/10 text-scampi dark:bg-scampi/20 dark:text-pictonBlue px-4 py-2 text-sm font-bold" data-i18n="footer.professionalism">احترافية</span>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-6" data-i18n="footer.quickLinks">روابط سريعة</h3>
+          <ul class="space-y-4">
+            <li><a href="#about" class="text-lg text-slate-600 dark:text-slate-300 hover:text-scampi transition-colors font-medium" data-i18n="nav.about">من نحن</a></li>
+            <li><a href="#services" class="text-lg text-slate-600 dark:text-slate-300 hover:text-scampi transition-colors font-medium" data-i18n="nav.services">خدماتنا</a></li>
+            <li><a href="#stats" class="text-lg text-slate-600 dark:text-slate-300 hover:text-scampi transition-colors font-medium" data-i18n="nav.stats">إنجازاتنا</a></li>
+            <li><a href="#testimonials" class="text-lg text-slate-600 dark:text-slate-300 hover:text-scampi transition-colors font-medium" data-i18n="nav.testimonials">الاعتمادات</a></li>
+            <li><a href="#clients" class="text-lg text-slate-600 dark:text-slate-300 hover:text-scampi transition-colors font-medium" data-i18n="nav.clients">عملاؤنا</a></li>
+            <li><a href="#contact" class="text-lg text-slate-600 dark:text-slate-300 hover:text-scampi transition-colors font-medium" data-i18n="nav.contact">تواصل معنا</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-6" data-i18n="footer.contactUs">اتصل بنا</h3>
+          <ul class="space-y-4 text-slate-600 dark:text-slate-300 mb-8">
+            <li class="flex items-start gap-4">
+              <i class="fas fa-map-marker-alt text-scampi mt-1 text-lg"></i>
+              <span class="text-lg font-medium" data-i18n="sections.contact.location">جدة، حي النهضة، مبنى REVIVA</span>
+            </li>
+            <li class="flex items-start gap-4">
+              <i class="fas fa-phone-alt text-scampi mt-1 text-lg"></i>
+              <span class="text-lg font-medium">+966 12 123 4567</span>
+            </li>
+            <li class="flex items-start gap-4">
+              <i class="fas fa-envelope text-scampi mt-1 text-lg"></i>
+              <span class="text-lg font-medium">info@reviva.sa</span>
+            </li>
+          </ul>
+          <div class="flex gap-4">
+            <a href="#" class="w-12 h-12 rounded-xl bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-scampi hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl">
+              <i class="fab fa-twitter text-lg"></i>
+            </a>
+            <a href="#" class="w-12 h-12 rounded-xl bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-scampi hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl">
+              <i class="fab fa-linkedin-in text-lg"></i>
+            </a>
+            <a href="#" class="w-12 h-12 rounded-xl bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-scampi hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl">
+              <i class="fab fa-instagram text-lg"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t-2 border-slate-200 dark:border-slate-700 mt-16 pt-10">
+        <p class="text-slate-500 dark:text-slate-400 text-base font-medium text-center">
+          &copy; 2024 REVIVA. <span data-i18n="footer.copyright">جميع الحقوق محفوظة — قطاع البيئة والاستدامة قسم الاستشارات.</span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- External Scripts -->
+  <script src="js/main.js"></script>
+
+  <!-- Leaflet Map Initialization -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const lat = 21.55464174809548;
+      const lng = 39.161828832857424;
+
+      const map = L.map('contact-map').setView([lat, lng], 16);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19
+      }).addTo(map);
+
+      const environmentalIcon = L.divIcon({
+        html: `<div style="
+          background-color: #635d9e;
+          color: white;
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 18px;
+          border: 2px solid white;
+          box-shadow: 0 3px 8px rgba(99, 93, 158, 0.4);
+        ">
+          <i class="fas fa-leaf"></i>
+        </div>`,
+        iconSize: [40, 40],
+        iconAnchor: [20, 40],
+        popupAnchor: [0, -35]
+      });
+
+      const marker = L.marker([lat, lng], { icon: environmentalIcon }).addTo(map);
+
+      marker.bindPopup(`
+        <div style="text-align: center; padding: 8px; min-width: 200px; font-family: 'Cairo', sans-serif;">
+          <strong style="color: #635d9e;">ريفيڤا للاستشارات البيئية</strong><br>
+          <span style="font-size: 13px; color: #555;">جدة، حي النهضة</span>
+        </div>
+      `);
+    });
+  </script>
+  <!-- Back to Top Button -->
+<button id="backToTopBtn"
+class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-scampi text-white shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-vibrantPurple hover:scale-110 z-[90]"
+data-i18n-aria="common.backToTop"
+aria-label="العودة إلى الأعلى">
+<i class="fas fa-arrow-up text-lg"></i>
+</button>
+
+  <!-- Floating Employee Login Button -->
+  <button onclick="openEmployeeLogin()"
+          class="fixed bottom-6 left-6 px-4 py-3 rounded-xl bg-gradient-to-r from-patina to-emerald-500 text-white text-sm font-bold shadow-2xl hover:shadow-emerald-500/50 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 border border-white/20 z-[90] backdrop-blur-sm"
+          data-i18n-aria="common.employeeLogin"
+          aria-label="تسجيل الدخول للموظفين"
+          data-i18n-title="common.employeeLogin"
+          title="تسجيل الدخول للموظفين">
+    <i class="fas fa-user-shield text-base"></i>
+    <span class="hidden sm:inline" data-i18n="common.employeeLogin">دخول الموظفين</span>
+    <span class="sm:hidden" data-i18n="common.employeeLogin">دخول</span>
+  </button>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const backToTopBtn = document.getElementById('backToTopBtn');
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+          backToTopBtn.classList.remove('opacity-0', 'invisible');
+          backToTopBtn.classList.add('opacity-100', 'visible');
+        } else {
+          backToTopBtn.classList.remove('opacity-100', 'visible');
+          backToTopBtn.classList.add('opacity-0', 'invisible');
+        }
+      });
+
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>بوابة العميل | REVIVA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --reviva-green: #66a286;  /* PATINA */
+      --reviva-blue: #54c0e8;   /* PICTON BLUE */
+      --reviva-hippy: #5e87b8;  /* HIPPY BLUE */
+      --scampi: #625d9d;        /* SCAMPI */
+      --fountain: #5ab5c4;      /* FOUNTAIN BLUE */
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes gradient-shift {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.5; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    @keyframes countUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #dbeafe 100%);
+    }
+
+    /* Sticky Header */
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+
+    .sticky-header.scrolled {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Tab System */
+    .tab-button {
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .tab-button.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(135deg, var(--reviva-green), var(--reviva-blue));
+      border-radius: 2px;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Countdown Timer */
+    .countdown-urgent {
+      animation: pulse 2s infinite;
+    }
+
+    /* Skeleton Loader */
+    .skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 1000px 100%;
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -1000px 0; }
+      100% { background-position: 1000px 0; }
+    }
+
+    /* Chat Widget */
+    .chat-widget {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .chat-window {
+      position: fixed;
+      bottom: 100px;
+      left: 24px;
+      width: 380px;
+      max-height: 500px;
+      z-index: 1001;
+      animation: slideIn 0.3s ease;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .modal-content {
+      animation: fadeIn 0.3s ease;
+      transform: scale(1);
+    }
+
+    /* Progress Bar */
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(90deg, var(--reviva-green), var(--reviva-blue));
+      transition: width 0.5s ease;
+    }
+
+    /* Sticky Summary Card */
+    .sticky-summary {
+      position: sticky;
+      top: 100px;
+      transition: all 0.3s ease;
+    }
+
+    /* Card Hover Effect */
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px -4px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Number Counter Animation */
+    .number-counter {
+      animation: countUp 0.6s ease;
+    }
+
+    /* Ripple Effect */
+    .ripple {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ripple::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .ripple:active::after {
+      width: 300px;
+      height: 300px;
+    }
+  </style>
+</head>
+
+<body class="text-slate-700">
+  <!-- Animated Background Overlays -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute top-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-30"
+         style="background: radial-gradient(circle, var(--reviva-blue), transparent 70%);"></div>
+    <div class="absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full blur-3xl opacity-25 animate-float"
+         style="background: radial-gradient(circle, var(--reviva-green), transparent 70%);"></div>
+    <div class="absolute bottom-0 left-1/3 w-[700px] h-[700px] rounded-full blur-3xl opacity-20"
+         style="background: radial-gradient(circle, var(--fountain), transparent 70%); animation: gradient-shift 10s ease-in-out infinite;"></div>
+  </div>
+
+  <!-- Enhanced Sticky Header -->
+  <header id="mainHeader" class="sticky-header bg-white/80 backdrop-blur-xl border-b border-white/30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <!-- Top Row: Logo, Breadcrumb, Actions -->
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-3">
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-lg overflow-hidden p-1"
+               style="background: linear-gradient(135deg, var(--reviva-blue), var(--reviva-green));">
+            <img src="intake/Logo.png" alt="REVIVA Logo" class="w-full h-full object-contain">
+          </div>
+          <div>
+            <div class="font-bold text-lg tracking-tight"
+                 style="background: linear-gradient(135deg, var(--reviva-blue), var(--scampi)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+              REVIVA • Client Portal
+            </div>
+            <!-- Breadcrumb -->
+            <nav class="text-xs text-slate-500 mt-0.5" aria-label="Breadcrumb">
+              <ol class="flex items-center gap-1.5">
+                <li><a href="index.html" class="hover:text-slate-700">Home</a></li>
+                <li>/</li>
+                <li><a href="#" class="hover:text-slate-700">Offers</a></li>
+                <li>/</li>
+                <li class="text-slate-700 font-medium" id="breadcrumbOfferId">—</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 flex-wrap">
+          <a href="index.html" class="rounded-xl bg-white/40 border border-white/30 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-white/60 transition-all shadow-sm flex items-center gap-2">
+            <span>🏠</span>
+            <span data-key="home">Home</span>
+          </a>
+          <button id="langToggle" class="rounded-xl bg-white/40 border border-white/30 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-white/60 transition-all shadow-sm">
+            <span id="langText">العربية</span>
+          </button>
+          <div id="statusChip" class="font-mono text-xs font-semibold px-3 py-1.5 rounded-lg inline-block"
+               style="background: linear-gradient(135deg, rgba(102, 162, 134, 0.1), rgba(84, 192, 232, 0.1)); color: var(--scampi);">
+            —
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Row: Validity Countdown -->
+      <div class="flex items-center justify-between pt-3 border-t border-slate-200/50">
+        <div class="text-xs text-slate-600">
+          <span data-key="validUntil">Valid Until:</span>
+          <span id="validityDate" class="font-semibold text-slate-700 ml-2">—</span>
+        </div>
+        <div id="countdownTimer" class="text-sm font-bold" style="color: var(--reviva-green);">
+          <span class="countdown-urgent">—</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-6 py-8 relative">
+    <!-- Messages -->
+    <div id="errorBox" class="hidden mb-5 rounded-xl border border-red-300/50 bg-red-50/80 px-5 py-4 text-sm text-red-600 shadow-sm"></div>
+    <div id="successBox" class="hidden mb-5 rounded-xl border border-emerald-300/50 bg-emerald-50/80 px-5 py-4 text-sm text-emerald-600 shadow-sm"></div>
+
+    <!-- Hero Section -->
+    <section id="heroSection" class="bg-gradient-to-br from-white/80 via-white/60 to-white/40 border border-white/40 rounded-3xl p-8 shadow-2xl backdrop-blur-sm mb-8 card-hover">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+        <div class="flex-1">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="text-3xl">🎯</div>
+            <div>
+              <h1 class="text-2xl font-bold" style="color: var(--scampi);" id="heroOfferId">Offer #—</h1>
+              <p class="text-sm text-slate-600 mt-1" data-key="heroSubtitle">Review your offer and make your decision</p>
+            </div>
+          </div>
+
+          <!-- Progress Indicator -->
+          <div class="mb-4">
+            <div class="flex items-center gap-2 text-xs text-slate-600 mb-2">
+              <span>Review</span>
+              <div class="flex-1 h-1 bg-slate-200 rounded-full overflow-hidden">
+                <div class="progress-bar" style="width: 50%;"></div>
+              </div>
+              <span>Decision</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white/60 rounded-xl p-4 border border-white/40">
+              <div class="text-xs text-slate-500 mb-1" data-key="grandTotalLabel">Grand Total</div>
+              <div class="text-2xl font-bold number-counter" style="color: var(--reviva-green);" id="heroGrandTotal">—</div>
+            </div>
+            <div class="bg-white/60 rounded-xl p-4 border border-white/40">
+              <div class="text-xs text-slate-500 mb-1" data-key="itemsCountLabel">Items</div>
+              <div class="text-2xl font-bold number-counter" style="color: var(--reviva-blue);" id="heroItemsCount">—</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:text-right">
+          <div class="inline-block bg-white/60 rounded-2xl p-6 border border-white/40 shadow-lg">
+            <div class="text-xs text-slate-500 mb-2" data-key="statusLabel">Status</div>
+            <div id="heroStatus" class="text-lg font-bold mb-4" style="color: var(--scampi);">—</div>
+            <div class="text-xs text-slate-500" data-key="lastUpdatedLabel">Last Updated</div>
+            <div id="heroUpdatedAt" class="text-sm font-semibold text-slate-700">—</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <div class="bg-white/60 border border-white/40 rounded-3xl shadow-2xl backdrop-blur-sm mb-6 overflow-hidden">
+      <div class="border-b border-slate-200/50 bg-white/40">
+        <div class="flex overflow-x-auto scrollbar-hide">
+          <button class="tab-button active px-6 py-4 text-sm font-semibold text-slate-700 whitespace-nowrap" data-tab="overview">
+            <span class="mr-2">📋</span>
+            <span data-key="tabOverview">Overview</span>
+          </button>
+          <button class="tab-button px-6 py-4 text-sm font-semibold text-slate-600 whitespace-nowrap hover:text-slate-800 transition-colors" data-tab="technical">
+            <span class="mr-2">🔧</span>
+            <span data-key="tabTechnical">Technical</span>
+          </button>
+          <button class="tab-button px-6 py-4 text-sm font-semibold text-slate-600 whitespace-nowrap hover:text-slate-800 transition-colors" data-tab="financial">
+            <span class="mr-2">💰</span>
+            <span data-key="tabFinancial">Financial</span>
+          </button>
+          <button class="tab-button px-6 py-4 text-sm font-semibold text-slate-600 whitespace-nowrap hover:text-slate-800 transition-colors" data-tab="terms">
+            <span class="mr-2">📜</span>
+            <span data-key="tabTerms">Terms & Conditions</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab Contents -->
+      <div class="p-6">
+        <!-- Overview Tab -->
+        <div id="tabOverview" class="tab-content active">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div class="bg-white/60 rounded-xl p-5 border border-white/40 card-hover">
+              <div class="text-xs text-slate-500 mb-2" data-key="overviewTotal">Total Value</div>
+              <div class="text-xl font-bold" style="color: var(--reviva-green);" id="overviewTotal">—</div>
+            </div>
+            <div class="bg-white/60 rounded-xl p-5 border border-white/40 card-hover">
+              <div class="text-xs text-slate-500 mb-2" data-key="overviewItems">Items Count</div>
+              <div class="text-xl font-bold" style="color: var(--reviva-blue);" id="overviewItems">—</div>
+            </div>
+            <div class="bg-white/60 rounded-xl p-5 border border-white/40 card-hover">
+              <div class="text-xs text-slate-500 mb-2" data-key="overviewValidity">Validity</div>
+              <div class="text-xl font-bold" style="color: var(--scampi);" id="overviewValidity">—</div>
+            </div>
+          </div>
+
+          <div class="bg-white/60 rounded-xl p-6 border border-white/40 mb-6">
+            <h3 class="text-lg font-bold mb-4" style="color: var(--scampi);" data-key="whatsNext">What's Next</h3>
+            <div class="space-y-3">
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 text-xs font-bold flex-shrink-0">1</div>
+                <div>
+                  <div class="font-semibold text-slate-800" data-key="step1Title">Review Offer Details</div>
+                  <div class="text-sm text-slate-600" data-key="step1Desc">Examine technical specifications and financial breakdown</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 text-xs font-bold flex-shrink-0">2</div>
+                <div>
+                  <div class="font-semibold text-slate-800" data-key="step2Title">Make Your Decision</div>
+                  <div class="text-sm text-slate-600" data-key="step2Desc">Approve or reject the offer with optional comments</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Tab -->
+        <div id="tabTechnical" class="tab-content">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <h2 class="text-xl font-bold" style="color: var(--scampi);" data-key="technicalOffer">Technical Offer</h2>
+              <p class="text-sm text-slate-600 mt-1" data-key="technicalDesc">Detailed technical specifications and scope of work</p>
+            </div>
+            <div class="flex gap-2">
+              <button id="btnDownloadTechnical" class="px-4 py-2 text-xs font-medium rounded-lg border border-slate-300 bg-white hover:bg-slate-50 transition-colors">
+                📥 Download
+              </button>
+              <span class="text-sm text-slate-500 bg-slate-50/80 px-3 py-1 rounded-lg" data-key="viewOnly">View Only</span>
+            </div>
+          </div>
+          <div id="technicalBox" class="space-y-4">
+            <div class="text-center py-8 text-slate-500">
+              <div class="text-4xl mb-2">📋</div>
+              <div class="font-medium">Loading technical offer...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Financial Tab -->
+        <div id="tabFinancial" class="tab-content">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <h2 class="text-xl font-bold" style="color: var(--reviva-green);" data-key="financialOffer">Financial Offer</h2>
+              <p class="text-sm text-slate-600 mt-1" data-key="financialDesc">Complete breakdown with totals</p>
+            </div>
+            <div class="flex gap-2">
+              <button id="btnDownloadQuotation" class="px-4 py-2 text-xs font-medium rounded-lg border border-slate-300 bg-white hover:bg-slate-50 transition-colors">
+                📥 Download Quotation
+              </button>
+              <span class="text-sm text-slate-500 bg-slate-50/80 px-3 py-1 rounded-lg" data-key="sarVat">SAR • VAT 15%</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Financial Table -->
+            <div class="lg:col-span-2">
+              <div class="overflow-hidden rounded-2xl border-2 border-slate-300 shadow-xl bg-white">
+                <div class="overflow-x-auto">
+                  <table class="min-w-full text-sm">
+                    <thead class="sticky top-0 z-10">
+                      <tr class="bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 text-white">
+                        <th class="px-6 py-4 font-bold text-sm text-left border-r border-white/20">الوصف / Description</th>
+                        <th class="px-6 py-4 font-bold text-sm text-center border-r border-white/20">الوحدة / Unit</th>
+                        <th class="px-6 py-4 font-bold text-sm text-center border-r border-white/20">الكمية / Quantity</th>
+                        <th class="px-6 py-4 font-bold text-sm text-right border-r border-white/20">سعر الوحدة / Unit Price</th>
+                        <th class="px-6 py-4 font-bold text-sm text-right" style="background: linear-gradient(135deg, rgba(102, 162, 134, 0.9), rgba(84, 192, 232, 0.9));">الإجمالي / Line Total</th>
+                      </tr>
+                    </thead>
+                    <tbody id="financialBody" class="bg-white divide-y divide-slate-200/50">
+                      <!-- Rows will be added here -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="mt-4 text-sm text-slate-600" id="financialNotes"></div>
+            </div>
+
+            <!-- Sticky Summary Card -->
+            <div class="sticky-summary">
+              <div class="bg-white/60 border-2 border-slate-300 rounded-2xl p-6 shadow-xl">
+                <div class="text-base font-bold text-slate-700 mb-4 uppercase tracking-wide" style="color: var(--scampi);">
+                  الملخص المالي / Financial Summary
+                </div>
+                <div class="space-y-3 mb-4">
+                  <div class="flex justify-between items-center py-2 border-b border-slate-200">
+                    <span class="text-sm font-semibold text-slate-600">المجموع الأساسي / Subtotal:</span>
+                    <span class="text-base font-bold text-slate-800" id="subTotal">—</span>
+                  </div>
+                  <div class="flex justify-between items-center py-2 border-b border-slate-200">
+                    <div>
+                      <span class="text-sm font-semibold text-slate-600">ضريبة القيمة المضافة / VAT:</span>
+                      <span class="text-xs text-slate-500 ml-2" id="vatRateDisplay">15%</span>
+                    </div>
+                    <span class="text-base font-bold text-slate-800" id="vatTotal">—</span>
+                  </div>
+                </div>
+                <div class="flex justify-between items-center pt-4 border-t-2 border-slate-400 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-lg px-4 py-3">
+                  <span class="text-lg font-bold text-slate-800">الإجمالي النهائي / Grand Total:</span>
+                  <span class="text-xl font-bold" style="color: var(--reviva-green);" id="grandTotal">—</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Terms & Conditions Tab -->
+        <div id="tabTerms" class="tab-content">
+          <h2 class="text-xl font-bold mb-6" style="color: var(--scampi);" data-key="termsTitle">Terms & Conditions</h2>
+          <div class="space-y-4" id="termsContent">
+            <!-- Payment Terms Accordion -->
+            <div class="bg-white/60 rounded-xl border border-white/40 overflow-hidden">
+              <button class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-white/40 transition-colors" onclick="toggleAccordion('paymentTerms')">
+                <span class="font-semibold text-slate-800" data-key="paymentTermsTitle">💳 Payment Terms</span>
+                <span class="text-xl" id="paymentTermsIcon">▼</span>
+              </button>
+              <div id="paymentTermsContent" class="hidden px-6 pb-4">
+                <div id="paymentTermsDetails"></div>
+              </div>
+            </div>
+
+            <!-- Offer Validity Accordion -->
+            <div class="bg-white/60 rounded-xl border border-white/40 overflow-hidden">
+              <button class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-white/40 transition-colors" onclick="toggleAccordion('validity')">
+                <span class="font-semibold text-slate-800" data-key="validityTitle">⏰ Offer Validity</span>
+                <span class="text-xl" id="validityIcon">▼</span>
+              </button>
+              <div id="validityContent" class="hidden px-6 pb-4">
+                <p class="text-sm text-slate-700" data-key="validityDesc">This offer is valid until the date specified above. After expiration, a new offer may be required.</p>
+              </div>
+            </div>
+
+            <!-- Cancellation Policy Accordion -->
+            <div class="bg-white/60 rounded-xl border border-white/40 overflow-hidden">
+              <button class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-white/40 transition-colors" onclick="toggleAccordion('cancellation')">
+                <span class="font-semibold text-slate-800" data-key="cancellationTitle">🚫 Cancellation Policy</span>
+                <span class="text-xl" id="cancellationIcon">▼</span>
+              </button>
+              <div id="cancellationContent" class="hidden px-6 pb-4">
+                <p class="text-sm text-slate-700" data-key="cancellationDesc">Cancellation requests must be submitted in writing. Terms may vary based on project stage.</p>
+              </div>
+            </div>
+
+            <!-- Warranties Accordion -->
+            <div class="bg-white/60 rounded-xl border border-white/40 overflow-hidden">
+              <button class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-white/40 transition-colors" onclick="toggleAccordion('warranties')">
+                <span class="font-semibold text-slate-800" data-key="warrantiesTitle">🛡️ Warranties & Guarantees</span>
+                <span class="text-xl" id="warrantiesIcon">▼</span>
+              </button>
+              <div id="warrantiesContent" class="hidden px-6 pb-4">
+                <p class="text-sm text-slate-700" data-key="warrantiesDesc">All work is guaranteed according to industry standards. Specific warranty terms will be detailed in the final contract.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Terms Section -->
+    <section id="paymentTermsSection" class="bg-white/60 border border-white/40 rounded-3xl p-6 shadow-2xl backdrop-blur-sm mb-6">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="text-2xl">💳</div>
+        <div>
+          <h2 class="text-xl font-bold" style="color: var(--scampi);" data-key="paymentScheduleTitle">Payment Schedule & Methods</h2>
+          <p class="text-sm text-slate-600 mt-1" data-key="paymentScheduleDesc">Payment milestones and accepted methods</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Payment Timeline -->
+        <div>
+          <h3 class="font-semibold text-slate-800 mb-4" data-key="paymentTimeline">Timeline</h3>
+          <div id="paymentTimeline" class="space-y-4">
+            <!-- Will be populated by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Payment Methods & Bank Details -->
+        <div>
+          <h3 class="font-semibold text-slate-800 mb-4" data-key="paymentMethods">Accepted Methods</h3>
+          <div id="paymentMethods" class="flex flex-wrap gap-2 mb-4">
+            <!-- Will be populated by JavaScript -->
+          </div>
+          <button id="btnToggleBankDetails" class="text-sm text-slate-600 hover:text-slate-800 underline" data-key="showBankDetails">Show Bank Details</button>
+          <div id="bankDetails" class="hidden mt-4 bg-white/60 rounded-xl p-4 border border-white/40">
+            <!-- Will be populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Information Card -->
+    <section id="contactSection" class="bg-white/60 border border-white/40 rounded-3xl p-6 shadow-2xl backdrop-blur-sm mb-6">
+      <h2 class="text-xl font-bold mb-6" style="color: var(--scampi);" data-key="contactTitle">Contact Information</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Account Manager -->
+        <div class="bg-white/60 rounded-xl p-6 border border-white/40 card-hover">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-100 to-green-100 flex items-center justify-center text-2xl">👤</div>
+            <div>
+              <div class="text-xs text-slate-500" data-key="accountManager">Your Account Manager</div>
+              <div class="font-semibold text-slate-800" id="accountManagerName">—</div>
+            </div>
+          </div>
+          <div class="space-y-2 text-sm">
+            <div class="flex items-center gap-2 text-slate-700">
+              <span>📧</span>
+              <a href="#" id="accountManagerEmail" class="hover:underline">—</a>
+            </div>
+            <div class="flex items-center gap-2 text-slate-700">
+              <span>📱</span>
+              <a href="#" id="accountManagerPhone" class="hover:underline">—</a>
+            </div>
+          </div>
+          <div class="mt-4 flex gap-2">
+            <a id="btnCallManager" href="#" class="flex-1 px-4 py-2 text-xs font-medium rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors text-center">
+              📞 Call Now
+            </a>
+            <a id="btnEmailManager" href="#" class="flex-1 px-4 py-2 text-xs font-medium rounded-lg bg-green-50 text-green-700 hover:bg-green-100 transition-colors text-center">
+              ✉️ Email
+            </a>
+          </div>
+        </div>
+
+        <!-- Company Info -->
+        <div class="bg-white/60 rounded-xl p-6 border border-white/40 card-hover">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-100 to-blue-100 flex items-center justify-center text-2xl">🏢</div>
+            <div>
+              <div class="text-xs text-slate-500" data-key="headOffice">REVIVA Head Office</div>
+              <div class="font-semibold text-slate-800">REVIVA</div>
+            </div>
+          </div>
+          <div class="space-y-2 text-sm">
+            <div class="flex items-center gap-2 text-slate-700">
+              <span>📍</span>
+              <span id="companyAddress">Jeddah, Saudi Arabia</span>
+            </div>
+            <div class="flex items-center gap-2 text-slate-700">
+              <span>📞</span>
+              <a href="#" id="companyPhone" class="hover:underline">—</a>
+            </div>
+            <div class="flex items-center gap-2 text-slate-700">
+              <span>⏰</span>
+              <span id="companyHours">Sun-Thu 9AM-6PM</span>
+            </div>
+          </div>
+          <div class="mt-4">
+            <a id="btnViewLocation" href="#" class="block w-full px-4 py-2 text-xs font-medium rounded-lg bg-slate-50 text-slate-700 hover:bg-slate-100 transition-colors text-center">
+              🗺️ View Location
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enhanced Client Decision Section -->
+    <section id="decisionSection" class="bg-white/60 border border-white/40 rounded-3xl p-6 shadow-2xl backdrop-blur-sm">
+      <div class="mb-6">
+        <h2 class="text-xl font-bold" style="color: var(--reviva-hippy);" data-key="makeDecision">Make Your Decision</h2>
+        <p class="text-sm text-slate-600 mt-1" data-key="decisionDesc">Review all details and submit your decision</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Left: Form Inputs -->
+        <div>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-medium text-slate-600 mb-2" data-key="nameLabel">Your Name (optional)</label>
+              <input id="clientName"
+                     class="w-full rounded-xl bg-white/90 border border-slate-200/60 px-4 py-3 outline-none focus:ring-2 focus:border-transparent transition-all shadow-sm hover:shadow-md focus:ring-blue-400"
+                     data-placeholder-key="namePlaceholder" />
+              <div class="text-xs text-slate-500 mt-2" data-key="nameHelp">Helpful for follow-up communication</div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium text-slate-600 mb-2" data-key="commentsLabel">Comments (required for rejection)</label>
+              <textarea id="clientComment" rows="4"
+                        class="w-full rounded-xl bg-white/90 border border-slate-200/60 px-4 py-3 outline-none focus:ring-2 focus:border-transparent transition-all shadow-sm hover:shadow-md focus:ring-blue-400"
+                        data-placeholder-key="commentsPlaceholder"></textarea>
+              <div class="text-xs text-slate-500 mt-2" data-key="commentsHelp">Required if rejecting the offer</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Action Buttons -->
+        <div class="flex flex-col justify-end">
+          <div class="bg-white/60 rounded-xl p-6 border border-white/40">
+            <div class="text-xs text-slate-500 mb-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                <span data-key="decisionCommunicated">Your decision will be communicated to our team</span>
+              </div>
+            </div>
+            <div class="flex flex-col gap-3">
+              <button id="btnApprove" class="ripple rounded-xl px-6 py-3 text-sm font-medium text-white hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                      style="background: linear-gradient(135deg, var(--reviva-green), var(--fountain));">
+                <span class="text-lg">✓</span>
+                <span data-key="approveOffer">Approve Offer</span>
+              </button>
+              <button id="btnReject" class="ripple rounded-xl border border-red-300/50 bg-red-50/80 px-6 py-3 text-sm font-medium text-red-600 hover:bg-red-100 hover:shadow-md transition-all flex items-center justify-center gap-2">
+                <span class="text-lg">✕</span>
+                <span data-key="rejectOffer">Reject Offer</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Confirmation Modal -->
+  <div id="confirmationModal" class="hidden modal-overlay">
+    <div class="modal-content bg-white rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center text-2xl">⚠️</div>
+        <h3 class="text-lg font-bold text-slate-800" data-key="confirmTitle">Confirm Your Decision</h3>
+      </div>
+      <p class="text-sm text-slate-600 mb-6" id="confirmMessage"></p>
+      <div class="flex gap-3 justify-end">
+        <button id="btnCancelConfirm" class="px-4 py-2 text-sm font-medium rounded-lg border border-slate-300 bg-white hover:bg-slate-50 transition-colors" data-key="cancel">Cancel</button>
+        <button id="btnConfirmDecision" class="px-4 py-2 text-sm font-medium rounded-lg text-white transition-colors" data-key="confirm">Yes, Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Chat Widget -->
+  <div class="chat-widget">
+    <button id="chatToggle" class="w-14 h-14 rounded-full shadow-lg flex items-center justify-center text-2xl transition-all hover:scale-110"
+            style="background: linear-gradient(135deg, var(--reviva-blue), var(--reviva-green)); color: white;">
+      💬
+    </button>
+    <div id="chatWindow" class="hidden chat-window bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col">
+      <div class="px-4 py-3 border-b border-slate-200 flex items-center justify-between bg-gradient-to-r from-blue-50 to-green-50">
+        <div>
+          <div class="font-semibold text-slate-800">REVIVA Sales Support</div>
+          <div class="text-xs text-slate-500 flex items-center gap-1">
+            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+            <span>Online</span>
+          </div>
+        </div>
+        <button id="chatClose" class="text-slate-500 hover:text-slate-700">✕</button>
+      </div>
+      <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 min-h-[300px]">
+        <div class="text-center text-sm text-slate-500 py-4">
+          <div class="mb-2">👋</div>
+          <div>Hello! How can we help you today?</div>
+        </div>
+      </div>
+      <div class="p-4 border-t border-slate-200">
+        <div class="flex gap-2 mb-2">
+          <button class="quick-response-btn text-xs px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 transition-colors" data-template="pricing">
+            💰 Pricing Question
+          </button>
+          <button class="quick-response-btn text-xs px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 transition-colors" data-template="call">
+            📞 Schedule Call
+          </button>
+          <button class="quick-response-btn text-xs px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 transition-colors" data-template="specs">
+            📋 Technical Specs
+          </button>
+        </div>
+        <div class="flex gap-2">
+          <input id="chatInput" type="text" placeholder="Type your message..."
+                 class="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-400" />
+          <button id="chatSend" class="px-4 py-2 rounded-lg text-white text-sm font-medium transition-colors"
+                  style="background: linear-gradient(135deg, var(--reviva-blue), var(--reviva-green));">
+            Send
+          </button>
+        </div>
+        <div class="text-xs text-slate-500 mt-2 text-center">
+          Note: This is a demo. Actual chat integration coming soon.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Mini Summary (appears on scroll) -->
+  <div id="stickyMiniSummary" class="hidden fixed top-24 right-6 z-50 bg-white/90 backdrop-blur-xl rounded-xl p-4 shadow-xl border border-white/40 max-w-xs">
+    <div class="text-xs text-slate-500 mb-1" data-key="grandTotalLabel">Grand Total</div>
+    <div class="text-lg font-bold" style="color: var(--reviva-green);" id="miniGrandTotal">—</div>
+    <div class="text-xs text-slate-500 mt-2" data-key="validUntil">Valid Until</div>
+    <div class="text-sm font-semibold text-slate-700" id="miniValidity">—</div>
+  </div>
+
+  <!-- Try loading the script -->
+  <script type="module">
+    // Try to import the module
+    import('./assets/js/pages/client-portal.js?v=20260111')
+      .then(() => {
+        console.log('✅ Module loaded successfully');
+      })
+      .catch(err => {
+        console.error('❌ Failed to load module:', err);
+        console.error('Error details:', {
+          message: err.message,
+          stack: err.stack,
+          name: err.name
+        });
+
+        // Show user-friendly error
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'fixed inset-0 z-50 flex items-center justify-center bg-red-50';
+        errorDiv.innerHTML = `
+          <div class="text-center p-8 bg-white rounded-xl shadow-2xl max-w-md mx-4">
+            <div class="text-4xl mb-4">⚠️</div>
+            <h1 class="text-2xl font-bold text-red-700 mb-2">Script Loading Error</h1>
+            <p class="text-red-600 mb-4">The client-portal.js script failed to load.</p>
+            <p class="text-sm text-slate-600 mb-2">Error: <code>${err.message}</code></p>
+            <p class="text-xs text-slate-500 mb-4">Check browser console (F12) for more details</p>
+            <button onclick="location.reload()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+              Reload Page
+            </button>
+          </div>
+        `;
+        document.body.appendChild(errorDiv);
+      });
+  </script>
+
+  <!-- Fallback: Direct script tag -->
+  <script type="module" src="./assets/js/pages/client-portal.js?v=20260111"></script>
+</body>
+</html>

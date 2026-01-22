@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>REVIVA | Offer Draft</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --reviva-green: #66a286;  /* PATINA */
+      --reviva-blue: #54c0e8;   /* PICTON BLUE */
+      --reviva-hippy: #5e87b8;  /* HIPPY BLUE */
+      --scampi: #625d9d;        /* SCAMPI */
+      --fountain: #5ab5c4;      /* FOUNTAIN BLUE */
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes gradient-shift {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.5; }
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #dbeafe 100%);
+    }
+
+    @media print {
+      body { background: #fff !important; }
+      .no-print { display: none !important; }
+      .print-white { background: #fff !important; border: 1px solid #ddd !important; }
+    }
+
+    /* Financial Table Styles - Enhanced */
+    .financial-table {
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    .financial-table thead th {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      white-space: nowrap;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .financial-table tbody tr {
+      transition: background-color 0.15s ease;
+      position: relative;
+    }
+
+    .financial-table tbody tr:hover {
+      background-color: #f8fafc;
+    }
+
+    .financial-table tbody tr:focus-within {
+      background-color: #f1f5f9;
+    }
+
+    /* Remove alternating row colors for cleaner look */
+    .financial-table tbody tr {
+      background-color: white !important;
+    }
+
+    .financial-table tbody tr:hover {
+      background-color: #f8fafc !important;
+    }
+
+    .financial-table input,
+    .financial-table select {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      font-weight: 500;
+    }
+
+    .financial-table input:focus,
+    .financial-table select:focus {
+      transform: scale(1.03);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.2);
+      border-color: var(--reviva-blue);
+    }
+
+    .percentage-col.hidden,
+    .discount-col.hidden {
+      display: none !important;
+    }
+
+    table thead th.percentage-col.hidden,
+    table thead th.discount-col.hidden {
+      display: none !important;
+    }
+
+    /* Remove line-total-cell special styling - make it simple */
+
+    /* Google Sheets-like Input Fields */
+    .input-field {
+      border: none;
+      border-radius: 4px;
+      padding: 10px 12px;
+      font-size: 14px;
+      transition: all 0.15s ease;
+      background: transparent;
+      width: 100%;
+      color: #1e293b;
+      font-weight: 400;
+    }
+
+    .input-field:hover {
+      background: rgba(241, 245, 249, 0.6);
+    }
+
+    .input-field:focus {
+      outline: none;
+      background: #f8fafc;
+      box-shadow: inset 0 0 0 2px var(--reviva-blue);
+    }
+
+    /* Input field containers with subtle borders */
+    .input-cell {
+      padding: 0;
+      border-right: 1px solid #e2e8f0;
+    }
+
+    .input-cell:last-child {
+      border-right: none;
+    }
+
+    .percentage-input {
+      position: relative;
+    }
+
+    .percentage-input input {
+      padding-right: 28px;
+    }
+
+    .percentage-symbol {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-weight: 500;
+      pointer-events: none;
+      font-size: 13px;
+    }
+
+    /* Enhanced button styles */
+    button[id^="btn"] {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    button[id^="btn"]:active {
+      transform: scale(0.98);
+    }
+
+    /* Smooth animations */
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .financial-table tbody tr {
+      animation: slideIn 0.3s ease-out;
+    }
+  </style>
+</head>
+
+<body class="text-slate-700">
+  <!-- Animated Background Overlays -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden no-print">
+    <div class="absolute top-20 left-10 w-72 h-72 rounded-full opacity-20 blur-3xl"
+         style="background: var(--reviva-blue); animation: float 6s ease-in-out infinite;"></div>
+    <div class="absolute bottom-20 right-10 w-96 h-96 rounded-full opacity-20 blur-3xl"
+         style="background: var(--reviva-green); animation: float 8s ease-in-out infinite;"></div>
+  </div>
+
+  <div class="relative z-10 container mx-auto px-4 py-8 max-w-7xl">
+    <!-- Error Message Box -->
+    <div id="errBox" class="hidden fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-red-50 border-2 border-red-300 text-red-700 px-6 py-4 rounded-xl shadow-lg max-w-md">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl">⚠️</span>
+        <span class="font-semibold"></span>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <section class="bg-white/60 border border-white/40 rounded-3xl p-6 shadow-2xl backdrop-blur-sm mb-6 print-white">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-3xl font-bold mb-2" style="color: var(--scampi);">Offer Draft</h1>
+          <div class="text-sm text-slate-600">Request ID: <span class="font-mono font-semibold" id="reqId">—</span></div>
+        </div>
+
+        <div class="flex gap-3 no-print">
+          <a href="dashboard.html" class="rounded-xl border border-slate-300/50 bg-white/80 px-5 py-2.5 text-sm font-medium hover:bg-white hover:shadow-md transition-all flex items-center gap-2"
+             style="color: var(--scampi);">
+            <span>🏠</span>
+            <span>Home</span>
+          </a>
+          <div class="bg-white/40 border border-white/30 rounded-xl p-4 shadow-sm">
+            <div class="text-xs font-medium text-slate-600 mb-1">Request Status</div>
+            <div class="font-bold text-slate-800" id="reqStatus">—</div>
+          </div>
+          <div class="bg-white/40 border border-white/30 rounded-xl p-4 shadow-sm">
+            <div class="text-xs font-medium text-slate-600 mb-1">Offer Status</div>
+            <div class="font-bold text-slate-800" id="offerStatus">—</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Offer Container -->
+    <section class="bg-white/60 border border-white/40 rounded-3xl p-6 shadow-2xl backdrop-blur-sm print-white">
+      <!-- Tabs -->
+      <div class="no-print flex gap-2 mb-6 border-b border-slate-200/60">
+        <button id="tabTech" class="px-4 py-2 font-medium border-b-2 transition-all"
+                style="border-color: var(--reviva-blue); color: var(--reviva-blue);">
+          Technical Offer
+        </button>
+        <button id="tabFin" class="px-4 py-2 font-medium text-slate-600 hover:text-slate-900 border-b-2 border-transparent transition-all">
+          Financial Offer
+        </button>
+        <button id="tabPayment" class="px-4 py-2 font-medium text-slate-600 hover:text-slate-900 border-b-2 border-transparent transition-all">
+          Payment & Contact
+        </button>
+        <div class="ml-auto flex gap-2">
+          <button id="btnPrint" class="rounded-xl border border-slate-300/50 bg-white/80 px-5 py-2.5 text-sm font-medium hover:bg-white hover:shadow-md transition-all"
+                  style="color: var(--scampi);">
+            Export PDF
+          </button>
+        </div>
+      </div>
+
+      <!-- Technical Offer Panel -->
+      <div id="panelTech">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <div class="text-xl font-bold" style="color: var(--reviva-blue);">Technical Offer</div>
+            <div class="text-sm text-slate-600 mt-1">Define the technical specifications and scope of work</div>
+          </div>
+          <button id="btnAddSection" class="no-print w-10 h-10 rounded-xl flex items-center justify-center transition-all hover:shadow-md"
+                  style="background: linear-gradient(135deg, var(--reviva-blue), var(--fountain));">
+            <span class="text-white text-lg">+</span>
+          </button>
+        </div>
+
+        <div id="techSections" class="space-y-4">
+          <!-- Sections will be added here dynamically -->
+        </div>
+
+        <!-- Timeline Section -->
+        <div class="mt-8 pt-8 border-t-2 border-slate-300/50">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <div class="text-xl font-bold" style="color: var(--reviva-blue);">📅 Project Timeline</div>
+              <div class="text-sm text-slate-600 mt-1">Define project phases and milestones with dates</div>
+            </div>
+            <button id="btnAddTimelineItem" class="no-print flex items-center gap-2 px-4 py-2 rounded-xl text-white font-medium transition-all hover:shadow-lg"
+                    style="background: linear-gradient(135deg, var(--reviva-blue), var(--fountain));">
+              <span class="text-lg">+</span>
+              <span>Add Phase</span>
+            </button>
+          </div>
+
+          <div id="timelineContainer" class="space-y-4">
+            <!-- Timeline items will be added here dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Financial Offer Panel -->
+      <div id="panelFin" class="hidden">
+        <!-- Header Section - Modern Design -->
+        <div class="mb-8">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center text-white text-xl font-bold shadow-lg"
+                   style="background: linear-gradient(135deg, var(--reviva-green), var(--fountain));">
+                💰
+              </div>
+              <div>
+                <h2 class="text-3xl font-bold mb-1" style="color: var(--reviva-green);">Financial Offer</h2>
+                <p class="text-sm text-slate-600">Define the pricing and financial terms for your proposal</p>
+              </div>
+            </div>
+            <button id="btnAddRow" class="no-print group flex items-center gap-3 px-6 py-3 rounded-xl text-white font-semibold transition-all hover:shadow-xl transform hover:scale-105 active:scale-95"
+                    style="background: linear-gradient(135deg, var(--reviva-green), var(--fountain));">
+              <svg class="w-5 h-5 group-hover:rotate-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+              </svg>
+              <span>Add Item</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Controls Bar - Enhanced Design -->
+        <div class="no-print mb-8 p-5 bg-gradient-to-br from-white via-slate-50 to-blue-50 border-2 border-slate-200/60 rounded-2xl shadow-lg">
+          <div class="flex flex-wrap items-center gap-3">
+            <button id="btnTogglePercentages" class="group flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:shadow-lg transform hover:scale-105"
+                    style="background: linear-gradient(135deg, var(--reviva-blue), var(--fountain));">
+              <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+              <span id="percentagesToggleText">إخفاء النسب / Hide Percentages</span>
+            </button>
+            <button id="btnToggleDiscount" class="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border-2 border-slate-300 bg-white hover:bg-slate-50 transition-all hover:shadow-md transform hover:scale-105"
+                    style="color: var(--scampi);">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span id="discountToggleText">إظهار الخصم / Show Discount</span>
+            </button>
+            <button id="btnApplySamePercentages" class="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border-2 border-emerald-300 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 transition-all hover:shadow-md transform hover:scale-105">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+              </svg>
+              <span>تطبيق نفس النسب / Apply Same Percentages</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Financial Table - Enhanced Design -->
+        <div class="bg-white rounded-3xl border-2 border-slate-200/60 shadow-2xl overflow-hidden backdrop-blur-sm">
+          <div class="overflow-x-auto">
+            <table class="financial-table min-w-full">
+              <thead>
+                <tr class="bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 shadow-lg">
+                  <th class="px-6 py-5 text-left text-sm font-bold text-white border-r border-white/20 min-w-[300px] backdrop-blur-sm">
+                    <div class="flex items-center gap-2">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                      </svg>
+                      <span>الوصف / Description</span>
+                    </div>
+                  </th>
+                  <th class="px-6 py-5 text-center text-sm font-bold text-white border-r border-white/20 w-28">
+                    <div class="flex items-center justify-center gap-2">
+                      <span>#</span>
+                      <span>الكمية / Qty</span>
+                    </div>
+                  </th>
+                  <th class="px-6 py-5 text-center text-sm font-bold text-white border-r border-white/20 w-36">
+                    <div class="flex items-center justify-center gap-2">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                      </svg>
+                      <span>الوحدة / Unit</span>
+                    </div>
+                  </th>
+                  <th class="px-6 py-5 text-right text-sm font-bold text-white border-r border-white/20 w-40">
+                    <div class="flex items-center justify-end gap-2">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
+                      <span>سعر التكلفة / Base Cost (SAR)</span>
+                    </div>
+                  </th>
+                  <th class="px-6 py-5 text-center text-sm font-bold text-white border-r border-white/20 w-32 percentage-col bg-emerald-700/90 backdrop-blur-sm">
+                    <div class="flex items-center justify-center gap-1.5">
+                      <span>📈</span>
+                      <span>نسبة الربح % / Profit %</span>
+                    </div>
+                  </th>
+                  <th class="px-6 py-5 text-center text-sm font-bold text-white border-r border-white/20 w-32 percentage-col bg-amber-600/90 backdrop-blur-sm">
+                    <div class="flex items-center justify-center gap-1.5">
+                      <span>⚠️</span>
+                      <span>نسبة الطوارئ % / Contingency %</span>
+                    </div>
+                  </th>
+                  <th class="px-6 py-5 text-center text-sm font-bold text-white border-r border-white/20 w-32 discount-col hidden bg-red-600/90 backdrop-blur-sm">
+                    <div class="flex items-center justify-center gap-1.5">
+                      <span>🎁</span>
+                      <span>نسبة الخصم % / Discount %</span>
+                    </div>
+                  </th>
+                  <th class="px-6 py-5 text-right text-sm font-bold text-white w-44 backdrop-blur-sm" style="background: linear-gradient(135deg, rgba(102, 162, 134, 0.95), rgba(84, 192, 232, 0.95));">
+                    <div class="flex items-center justify-end gap-2">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                      </svg>
+                      <span>الإجمالي / Line Total</span>
+                    </div>
+                  </th>
+                  <th class="no-print px-6 py-5 text-center text-sm font-bold text-white w-20 backdrop-blur-sm"></th>
+                </tr>
+              </thead>
+              <tbody id="finBody" class="bg-white divide-y divide-slate-200/60">
+                <!-- Rows will be added here dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Summary Section - Enhanced Design -->
+        <div class="mt-10 flex flex-col lg:flex-row gap-8">
+          <div class="flex-1"></div>
+          <div class="w-full lg:w-[420px] bg-gradient-to-br from-white via-slate-50 to-blue-50/30 border-2 border-slate-300/60 rounded-3xl p-8 shadow-2xl backdrop-blur-sm">
+            <!-- Header -->
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b-2 border-slate-300/60">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center text-white text-lg font-bold shadow-lg"
+                   style="background: linear-gradient(135deg, var(--scampi), var(--reviva-blue));">
+                📊
+              </div>
+              <h3 class="text-xl font-bold text-slate-800" style="color: var(--scampi);">
+                الملخص النهائي / Final Summary
+              </h3>
+            </div>
+
+            <!-- Summary Items -->
+            <div class="space-y-4">
+              <!-- Subtotal -->
+              <div class="flex justify-between items-center py-3 px-4 bg-white/60 rounded-xl border border-slate-200/60 transition-all hover:shadow-md">
+                <div class="flex items-center gap-2">
+                  <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                  </svg>
+                  <span class="text-sm font-semibold text-slate-700">المجموع الجزئي / Subtotal:</span>
+                </div>
+                <span class="text-base font-bold text-slate-800" id="subtotal">0.00 SAR</span>
+              </div>
+
+              <!-- Discount Row (Hidden by default) -->
+              <div id="discountRow" class="hidden flex justify-between items-center py-3 px-4 bg-red-50/60 rounded-xl border-2 border-red-200/60 transition-all hover:shadow-md">
+                <div class="flex items-center gap-2">
+                  <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <span class="text-sm font-semibold text-red-700">الخصم الإجمالي / Total Discount:</span>
+                </div>
+                <span class="text-base font-bold text-red-600" id="discountTotal">0.00 SAR</span>
+              </div>
+
+              <!-- Before VAT -->
+              <div class="flex justify-between items-center py-3 px-4 bg-white/60 rounded-xl border border-slate-200/60 transition-all hover:shadow-md">
+                <div class="flex items-center gap-2">
+                  <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                  </svg>
+                  <span class="text-sm font-semibold text-slate-700">المجموع قبل الضريبة / Before VAT:</span>
+                </div>
+                <span class="text-base font-bold text-slate-800" id="subtotalBeforeVat">0.00 SAR</span>
+              </div>
+
+              <!-- VAT -->
+              <div class="flex justify-between items-center py-4 px-5 border-2 border-blue-300/60 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl transition-all hover:shadow-lg">
+                <div class="flex items-center gap-2">
+                  <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <div>
+                    <div class="text-sm font-semibold text-slate-700">ضريبة القيمة المضافة / VAT:</div>
+                    <div class="text-xs text-slate-500 font-medium mt-0.5" id="vatRateDisplay">Rate: 15%</div>
+                  </div>
+                </div>
+                <span class="text-lg font-bold text-blue-700" id="vat">0.00 SAR</span>
+              </div>
+            </div>
+
+            <!-- Grand Total -->
+            <div class="mt-8 pt-6 border-t-3 border-slate-400/60 bg-gradient-to-r from-emerald-50 via-teal-50 to-blue-50 rounded-2xl px-6 py-6 -mx-2 -mb-2 shadow-lg">
+              <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                  <svg class="w-6 h-6" style="color: var(--reviva-green);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                  </svg>
+                  <span class="text-xl font-bold text-slate-800">الإجمالي النهائي / Grand Total:</span>
+                </div>
+                <span class="text-3xl font-extrabold tracking-tight" style="color: var(--reviva-green);" id="total">0.00 SAR</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment & Contact Panel -->
+      <div id="panelPayment" class="hidden">
+        <div class="mb-8">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-white text-xl font-bold shadow-lg"
+                 style="background: linear-gradient(135deg, var(--scampi), var(--fountain));">
+              💳
+            </div>
+            <div>
+              <h2 class="text-3xl font-bold mb-1" style="color: var(--scampi);">Payment Terms & Contact Info</h2>
+              <p class="text-sm text-slate-600">Configure payment terms, contact information, and offer validity for the client portal</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Offer Validity -->
+        <div class="mb-8 p-6 bg-gradient-to-br from-white via-slate-50 to-blue-50 border-2 border-slate-200/60 rounded-2xl shadow-lg">
+          <h3 class="text-xl font-bold mb-4" style="color: var(--scampi);">📅 Offer Validity</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-2">Offer Expiry Date</label>
+              <input type="datetime-local" id="inputValidityDate"
+                     class="w-full px-4 py-2.5 border-2 border-slate-300 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                     placeholder="Select expiry date">
+              <p class="text-xs text-slate-500 mt-1">The offer will expire on this date in the client portal</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Terms -->
+        <div class="mb-8 p-6 bg-gradient-to-br from-white via-emerald-50 to-teal-50 border-2 border-slate-200/60 rounded-2xl shadow-lg">
+          <div class="flex items-center justify-between mb-6">
+            <h3 class="text-xl font-bold" style="color: var(--reviva-green);">💰 Payment Terms</h3>
+          </div>
+
+          <!-- Payment Milestones -->
+          <div class="mb-8">
+            <div class="flex items-center justify-between mb-4">
+              <label class="block text-sm font-semibold text-slate-700">Payment Milestones</label>
+              <button type="button" id="btnAddMilestone" class="no-print flex items-center gap-2 px-4 py-2 rounded-xl text-white text-sm font-medium transition-all hover:shadow-lg transform hover:scale-105"
+                      style="background: linear-gradient(135deg, var(--reviva-green), var(--fountain));">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                <span>Add Milestone</span>
+              </button>
+            </div>
+            <div id="milestonesContainer" class="space-y-4">
+              <!-- Milestones will be added here dynamically -->
+            </div>
+            <p class="text-xs text-slate-500 mt-3">Add payment milestones with name, percentage, and due date condition</p>
+          </div>
+
+          <!-- Payment Methods -->
+          <div class="mb-8">
+            <label class="block text-sm font-semibold text-slate-700 mb-3">Accepted Payment Methods</label>
+            <div class="flex flex-wrap gap-2 mb-3" id="paymentMethodsContainer">
+              <!-- Payment method chips will be added here -->
+            </div>
+            <div class="flex gap-2">
+              <input type="text" id="inputNewPaymentMethod"
+                     class="flex-1 px-4 py-2.5 border-2 border-slate-300 rounded-xl focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all"
+                     placeholder="Enter payment method (e.g., Bank Transfer)">
+              <button type="button" id="btnAddPaymentMethod" class="px-6 py-2.5 rounded-xl text-white text-sm font-medium transition-all hover:shadow-lg"
+                      style="background: linear-gradient(135deg, var(--reviva-green), var(--fountain));">
+                Add
+              </button>
+            </div>
+            <p class="text-xs text-slate-500 mt-2">Click on a method to remove it</p>
+          </div>
+
+          <!-- Bank Details -->
+          <div class="mb-4">
+            <label class="block text-sm font-semibold text-slate-700 mb-4">Bank Details</label>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-medium text-slate-600 mb-2">Bank Name</label>
+                <input type="text" id="inputBankName"
+                       class="w-full px-4 py-2.5 border-2 border-slate-300 rounded-xl focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all"
+                       placeholder="Al Rajhi Bank">
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-slate-600 mb-2">Account Number</label>
+                <input type="text" id="inputAccountNumber"
+                       class="w-full px-4 py-2.5 border-2 border-slate-300 rounded-xl focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all"
+                       placeholder="1234567890">
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-slate-600 mb-2">IBAN</label>
+                <input type="text" id="inputIBAN"
+                       class="w-full px-4 py-2.5 border-2 border-slate-300 rounded-xl focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all"
+                       placeholder="SA1234567890123456789012">
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-slate-600 mb-2">SWIFT Code</label>
+                <input type="text" id="inputSWIFT"
+                       class="w-full px-4 py-2.5 border-2 border-slate-300 rounded-xl focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all"
+                       placeholder="ALRJSARI">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="mb-8 p-6 bg-gradient-to-br from-white via-blue-50 to-cyan-50 border-2 border-slate-200/60 rounded-2xl shadow-lg">
+          <h3 class="text-xl font-bold mb-4" style="color: var(--reviva-blue);">📞 Contact Information</h3>
+
+          <!-- Account Manager -->
+          <div class="mb-6">
+            <h4 class="text-lg font-semibold mb-4 text-slate-700">Account Manager</h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2">Name</label>
+                <input type="text" id="inputManagerName"
+                       class="w-full px-4 py-2.5 border-2 border-slate-300 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                       placeholder="Ayman Alobaid">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2">Email</label>
+                <input type="email" id="inputManagerEmail"
+                       class="w-full px-4 py-2.5 border-2 border-slate-300 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                       placeholder="alobaid.a@reviva.sa">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2">Phone</label>
+                <input type="tel" id="inputManagerPhone"
+                       class="w-full px-4 py-2.5 border-2 border-slate-300 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                       placeholder="+966XXXXXXXXX">
+              </div>
+            </div>
+          </div>
+
+          <!-- Company Info -->
+          <div>
+            <h4 class="text-lg font-semibold mb-4 text-slate-700">Company Information</h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2">Address</label>
+                <input type="text" id="inputCompanyAddress"
+                       class="w-full px-4 py-2.5 border-2 border-slate-300 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                       placeholder="Jeddah, Saudi Arabia">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2">Phone</label>
+                <input type="tel" id="inputCompanyPhone"
+                       class="w-full px-4 py-2.5 border-2 border-slate-300 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                       placeholder="+966XXXXXXXXX">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2">Business Hours</label>
+                <input type="text" id="inputCompanyHours"
+                       class="w-full px-4 py-2.5 border-2 border-slate-300 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                       placeholder="Sun-Thu 9AM-6PM">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="no-print mt-8 pt-6 border-t border-slate-200/60 flex flex-wrap gap-3">
+        <button id="btnSaveDraft" class="rounded-xl px-6 py-3 text-sm font-semibold text-white hover:shadow-lg transition-all"
+                style="background: linear-gradient(135deg, var(--reviva-blue), var(--fountain));">
+          Save Draft
+        </button>
+
+        <button id="btnSubmit" class="rounded-xl border-2 border-slate-300 bg-white px-6 py-3 text-sm font-semibold hover:bg-slate-50 hover:shadow-md transition-all"
+                style="color: var(--scampi);">
+          Submit to Manager
+        </button>
+
+        <div class="ml-auto bg-white/40 border border-white/30 rounded-xl p-4 shadow-sm">
+          <div class="text-xs font-medium text-slate-600 mb-1">Offer ID</div>
+          <div class="font-mono text-sm text-slate-800" id="offerId">—</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="assets/js/pages/offer-draft.js"></script>
+</body>
+</html>

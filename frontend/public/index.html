@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>REVIVA | Loading...</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root{
+      --bg:#ffffff; /* WHITE */
+      --reviva-green:#66a286; /* PATINA */
+      --reviva-blue:#54c0e8;  /* PICTON BLUE */
+      --reviva-sky:#5ab5c4;   /* FOUNTAIN BLUE */
+      --scampi:#625d9d;       /* SCAMPI */
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .spinner {
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      border-top-color: var(--reviva-blue);
+      border-right-color: var(--reviva-green);
+      animation: spin 1s linear infinite;
+    }
+
+    .logo-float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .fade-in {
+      animation: fade-in 0.8s ease-out;
+    }
+
+    .pulse-glow {
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-slate-100 overflow-hidden" style="background-color: var(--bg);">
+
+  <!-- Enhanced background effects -->
+  <div class="fixed inset-0 pointer-events-none">
+    <div class="absolute inset-0 bg-gradient-to-br from-white via-slate-50 to-slate-100"></div>
+
+    <!-- Animated gradient orbs -->
+    <div class="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full blur-3xl opacity-30 pulse-glow"
+         style="background: radial-gradient(circle at 30% 30%, var(--reviva-blue), transparent 60%);"></div>
+    <div class="absolute -bottom-52 right-1/4 w-[680px] h-[680px] rounded-full blur-3xl opacity-25 pulse-glow"
+         style="background: radial-gradient(circle at 30% 30%, var(--reviva-green), transparent 60%);"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full blur-3xl opacity-15"
+         style="background: radial-gradient(circle at 50% 50%, var(--reviva-sky), transparent 70%);"></div>
+  </div>
+
+  <!-- Main content -->
+  <div class="min-h-screen flex items-center justify-center relative z-10">
+    <div class="text-center fade-in">
+      <!-- Logo/Brand -->
+      <div class="mb-8 logo-float">
+        <div class="text-6xl md:text-7xl font-bold tracking-tight mb-2 bg-gradient-to-r from-white via-slate-100 to-slate-200 bg-clip-text text-transparent">
+          REVIVA
+        </div>
+        <div class="w-24 h-1 mx-auto mt-4 rounded-full bg-gradient-to-r from-transparent via-var(--reviva-blue) to-transparent"
+             style="background: linear-gradient(to right, transparent, var(--reviva-blue), transparent);"></div>
+      </div>
+
+      <!-- Loading spinner -->
+      <div class="flex justify-center mb-6">
+        <div class="spinner w-12 h-12 rounded-full"></div>
+      </div>
+
+      <!-- Status text -->
+      <div class="text-slate-700 text-lg font-medium tracking-wide">
+        Redirecting...
+      </div>
+
+      <!-- Loading dots animation -->
+      <div class="flex justify-center gap-1 mt-3">
+        <div class="w-2 h-2 rounded-full bg-slate-600/70 animate-pulse" style="animation-delay: 0s;"></div>
+        <div class="w-2 h-2 rounded-full bg-slate-600/70 animate-pulse" style="animation-delay: 0.2s;"></div>
+        <div class="w-2 h-2 rounded-full bg-slate-600/70 animate-pulse" style="animation-delay: 0.4s;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../assets/js/pages/index.js"></script>
+</body>
+</html>

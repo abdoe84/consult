@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>REVIVA | Login</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --scampi:#635d9e; --patina:#66a286; --picton:#54c0e8; --hippie:#5f84b5;
+    }
+    body{ font-family: Cairo, system-ui, sans-serif; }
+    .bg-grad{
+      background:
+        radial-gradient(1200px 600px at 10% 10%, rgba(84,192,232,.08), transparent 55%),
+        radial-gradient(900px 500px at 85% 25%, rgba(102,162,134,.08), transparent 55%),
+        linear-gradient(135deg, #ffffff, #f8fafc 45%, #f1f5f9);
+      min-height: 100vh;
+    }
+    .glass{
+      background: rgba(255,255,255,.95);
+      border: 1px solid rgba(98,93,157,.15);
+      box-shadow: 0 20px 60px rgba(0,0,0,.1);
+      backdrop-filter: blur(10px);
+    }
+  </style>
+</head>
+
+<body class="bg-grad flex items-center justify-center p-6">
+  <div class="w-full max-w-md glass rounded-3xl p-8 text-slate-800 shadow-xl">
+    <div class="flex items-center gap-3 mb-6">
+      <div class="w-12 h-12 rounded-2xl flex items-center justify-center overflow-hidden p-1.5" style="background:rgba(99,93,158,.35);border:1px solid rgba(255,255,255,.18)">
+        <img src="intake/Logo.png" alt="REVIVA Logo" class="w-full h-full object-contain">
+      </div>
+      <div>
+        <div class="text-xl font-bold">REVIVA</div>
+        <div class="text-white/70 text-sm">Internal System • 2026</div>
+      </div>
+    </div>
+
+    <h1 class="text-2xl font-bold mb-2" style="color: var(--scampi);">Sign in</h1>
+    <p class="text-slate-500 mb-6">Use your REVIVA account.</p>
+
+    <div id="errorBox" class="hidden mb-4 rounded-xl border border-red-400/30 bg-red-500/10 p-3 text-sm text-red-700"></div>
+
+    <form id="loginForm" class="space-y-4">
+      <div>
+        <label class="text-sm text-white/80">Email</label>
+        <input id="email" type="email" class="mt-1 w-full rounded-xl bg-white/10 border border-white/15 px-4 py-3 outline-none focus:ring-2 focus:ring-[color:var(--picton)]" placeholder="name@reviva.sa" required />
+      </div>
+
+      <div>
+        <label class="text-sm text-white/80">Password</label>
+        <input id="password" type="password" class="mt-1 w-full rounded-xl bg-white/10 border border-white/15 px-4 py-3 outline-none focus:ring-2 focus:ring-[color:var(--picton)]" placeholder="••••••••" required />
+      </div>
+
+      <button id="loginBtn" type="submit" class="w-full rounded-xl py-3 font-bold text-white"
+              style="background:linear-gradient(90deg,var(--patina),var(--picton))">
+        Login
+      </button>
+    </form>
+
+    <div class="mt-6 text-xs text-white/60">
+      Auth header used: <span class="text-white/80">Authorization: Bearer &lt;token&gt;</span>
+    </div>
+  </div>
+
+  <script type="module" src="../assets/js/pages/login.js?v=20260110"></script>
+
+
+</body>
+</html>

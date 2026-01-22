@@ -1,0 +1,73 @@
+{
+  "workbench.colorTheme": "Reviva Professional",
+  "workbench.colorCustomizations": {
+    "[Reviva Professional]": {
+      // Glassmorphism effects for panels
+      "panel.background": "#161320e6",
+      "sideBar.background": "#161320e6",
+      "editorGroupHeader.tabsBackground": "#161320e6",
+
+      // Enhanced border styling
+      "sideBar.border": "#2a243800",
+      "panel.border": "#2a2438",
+
+      // Soft rounded corners simulation (via padding)
+      "input.borderRadius": 8,
+      "button.borderRadius": 8
+    }
+  },
+
+  // Editor settings for modern 2026 feel
+  "editor.fontSize": 14,
+  "editor.fontFamily": "'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Monaco, 'Courier New', monospace",
+  "editor.fontLigatures": true,
+  "editor.smoothScrolling": true,
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.renderWhitespace": "selection",
+  "editor.renderControlCharacters": false,
+  "editor.guides.indentation": true,
+  "editor.guides.highlightActiveIndentation": true,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.suggest.showStatusBar": true,
+
+  // Minimap
+  "editor.minimap.enabled": true,
+  "editor.minimap.maxColumn": 120,
+  "editor.minimap.renderCharacters": false,
+
+  // Terminal
+  "terminal.integrated.fontSize": 13,
+  "terminal.integrated.fontFamily": "'JetBrains Mono', 'Fira Code', monospace",
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyle": "line",
+
+  // Workbench
+  "workbench.iconTheme": "vs-seti",
+  "workbench.editor.enablePreview": false,
+  "workbench.startupEditor": "none",
+  "workbench.sideBar.location": "left",
+  "workbench.statusBar.visible": true,
+
+  // Window
+  "window.titleBarStyle": "custom",
+  "window.menuBarVisibility": "compact",
+
+  // File Explorer
+  "explorer.confirmDelete": true,
+  "explorer.confirmDragAndDrop": true,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+
+  // Extensions recommendations
+  "extensions.ignoreRecommendations": false,
+
+  // Live Server settings - الحل الجذري: استخدم start-frontend.bat بدلاً من Live Server
+  // Live Server من VS Code لا يدعم root directory بشكل جيد
+  // للحصول على روابط بسيطة: http://127.0.0.1:5500/login.html
+  // استخدم: start-frontend.bat (Windows) أو start-frontend.sh (Mac/Linux)
+  "liveServer.settings.port": 5503,
+  "liveServer.settings.CustomBrowser": "chrome"
+}

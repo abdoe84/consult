@@ -1,0 +1,44 @@
+{
+  "name": "reviva-professional-theme",
+  "displayName": "Reviva Professional",
+  "description": "A highly aesthetic, modern 2026-style theme using the premium Reviva color palette",
+  "version": "1.0.0",
+  "publisher": "reviva",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Reviva Professional",
+        "uiTheme": "vs-dark",
+        "path": "./reviva-theme.json"
+      }
+    ],
+    "colors": {
+      "activityBar.activeBorder": "#635d9e",
+      "statusBar.background": "#161320",
+      "editor.background": "#1a1729",
+      "editor.foreground": "#e8eefc",
+      "editorCursor.foreground": "#54c0e8",
+      "tab.activeBorder": "#635d9e"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reviva/reviva-theme"
+  },
+  "keywords": [
+    "reviva",
+    "theme",
+    "dark",
+    "premium",
+    "professional",
+    "2026",
+    "modern"
+  ],
+  "license": "MIT"
+}
