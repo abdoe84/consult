@@ -25,7 +25,43 @@ const app = express();
 // ✅ Disable ETag to avoid 304 for API JSON
 app.disable("etag");
 
-app.use(helmet());
+// Configure Helmet with CSP that allows CDN resources and inline scripts
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: [
+        "'self'",
+        "'unsafe-inline'", // For inline scripts in intake page
+        "https://cdn.tailwindcss.com",
+        "https://unpkg.com",
+        "https://cdn.jsdelivr.net",
+        "https://cdnjs.cloudflare.com"
+      ],
+      styleSrc: [
+        "'self'",
+        "'unsafe-inline'", // For inline styles
+        "https://fonts.googleapis.com",
+        "https://cdnjs.cloudflare.com",
+        "https://unpkg.com"
+      ],
+      fontSrc: [
+        "'self'",
+        "https://fonts.gstatic.com",
+        "https://fonts.googleapis.com"
+      ],
+      imgSrc: [
+        "'self'",
+        "data:",
+        "blob:",
+        "https:"
+      ],
+      connectSrc: [
+        "'self'"
+      ]
+    }
+  }
+}));
 app.use(cors());
 app.use(express.json({ limit: "5mb" }));
 app.use(morgan("dev"));
