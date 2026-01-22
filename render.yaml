@@ -9,12 +9,17 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      - key: https://xhzudbkxzyhqapcbtkpv.supabase.co
-        sync: false  # يجب إضافتها يدوياً من Render Dashboard
-      - key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhoenVkYmt4enlocWFwY2J0a3B2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NzgxMTMyMywiZXhwIjoyMDgzMzg3MzIzfQ.QhY03jURibNkD9PyzBT26fEvXHvRd-o2WTQyBneMkUg
-        sync: false  # يجب إضافتها يدوياً من Render Dashboard
-      - key: IyYV3mHIiCWfbu8b/sZlSPJ+nsZAJBeI9GDtEYkepH8qFEXNcY+W33PzgDprbb4gCZmTblgvdgFW8mW31PM0NA==
-        sync: false  # يجب إضافتها يدوياً من Render Dashboard
+
+      # المتغيرات التي يجب إدخال قيمها يدوياً في لوحة تحكم Render
+      - key: SUPABASE_URL
+        sync: false
+
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+
+      - key: JWT_SECRET
+        sync: false
+
+      # تصحيح الخطأ: لا يمكن جمع value و sync معاً
       - key: SUPABASE_STORAGE_BUCKET
         value: documents
-        sync: false  # اختياري - أضفه إن كنت تستخدمه
