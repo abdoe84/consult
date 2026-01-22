@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: reviva-app
+    name: reviva-consult
     runtime: node
     plan: free
     region: frankfurt
@@ -9,11 +9,11 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      - key: SUPABASE_URL
+      - key: https://xhzudbkxzyhqapcbtkpv.supabase.co
         sync: false  # يجب إضافتها يدوياً من Render Dashboard
-      - key: SUPABASE_SERVICE_ROLE_KEY
+      - key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhoenVkYmt4enlocWFwY2J0a3B2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NzgxMTMyMywiZXhwIjoyMDgzMzg3MzIzfQ.QhY03jURibNkD9PyzBT26fEvXHvRd-o2WTQyBneMkUg
         sync: false  # يجب إضافتها يدوياً من Render Dashboard
-      - key: JWT_SECRET
+      - key: IyYV3mHIiCWfbu8b/sZlSPJ+nsZAJBeI9GDtEYkepH8qFEXNcY+W33PzgDprbb4gCZmTblgvdgFW8mW31PM0NA==
         sync: false  # يجب إضافتها يدوياً من Render Dashboard
       - key: SUPABASE_STORAGE_BUCKET
         value: documents
