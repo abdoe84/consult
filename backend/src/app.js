@@ -55,6 +55,9 @@ app.use("/api/admin/users", adminUsersRoutes);
 app.use("/api/users", usersDirectoryRoutes);
 app.use("/api/project-execution", projectExecutionRoutes);
 
+// Redirect root to intake page
+app.get("/", (req, res) => res.redirect("/intake/"));
+
 // Serve frontend static files (for production deployment – same origin as API)
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const frontendPath = path.join(__dirname, "../../frontend/public");
