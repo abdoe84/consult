@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: reviva-app
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SUPABASE_URL
+        sync: false  # يجب إضافتها يدوياً من Render Dashboard
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false  # يجب إضافتها يدوياً من Render Dashboard
+      - key: JWT_SECRET
+        sync: false  # يجب إضافتها يدوياً من Render Dashboard
+      - key: SUPABASE_STORAGE_BUCKET
+        value: documents
+        sync: false  # اختياري - أضفه إن كنت تستخدمه
