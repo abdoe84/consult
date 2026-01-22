@@ -32,24 +32,26 @@ app.use(helmet({
       defaultSrc: ["'self'"],
       scriptSrc: [
         "'self'",
-        "'unsafe-inline'", // For inline scripts in intake page
+        "'unsafe-inline'",
         "https://cdn.tailwindcss.com",
         "https://unpkg.com",
         "https://cdn.jsdelivr.net",
         "https://cdnjs.cloudflare.com"
       ],
+      scriptSrcAttr: ["'unsafe-inline'"], // For onclick, etc. in intake HTML
       styleSrc: [
         "'self'",
-        "'unsafe-inline'", // For inline styles
+        "'unsafe-inline'",
         "https://fonts.googleapis.com",
         "https://cdnjs.cloudflare.com",
         "https://unpkg.com"
       ],
       fontSrc: [
         "'self'",
+        "data:",
         "https://fonts.gstatic.com",
         "https://fonts.googleapis.com",
-        "https://cdnjs.cloudflare.com" // For Font Awesome icons
+        "https://cdnjs.cloudflare.com"
       ],
       imgSrc: [
         "'self'",
@@ -59,7 +61,9 @@ app.use(helmet({
       ],
       connectSrc: [
         "'self'",
-        "https://unpkg.com" // For Lottie Player and Leaflet connections
+        "https://unpkg.com",
+        "https://cdn.jsdelivr.net",
+        "https://cdnjs.cloudflare.com"
       ]
     }
   }
